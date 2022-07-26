@@ -44,9 +44,10 @@ class _UpdatesPageState extends State<UpdatesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF1A8F00),
         title: const Text(
-          "Scholarships & Awards",
+          "Awards",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
@@ -101,45 +102,66 @@ class _UpdatesPageState extends State<UpdatesPage> {
                     itemCount: data!.length,
                     physics: const ScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return Card(
-                          elevation: 3,
-                          margin: const EdgeInsets.all(5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: ListTile(
-                            leading: data[index].image != null ? Image.network(
-                                data[index].image!,
-                                height: 250, fit: BoxFit.fill) : Image.asset(
-                                "assets/images/dp.png"),
-                            dense: true,
-
-                            title: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              data[index].title!,
-                              style: const TextStyle(
-                                fontSize: 15.0,
+                      return GestureDetector(
+                        onTap: (){
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) =>ScholarshipDetails(
+                                            image: data[index].image!, title: data[index].title!, website: data[index].website!, email: data[index].email!, address: data[index].address!, description: data[index].description!, phone: data[index].phone!)));
+                        },
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: Container(
+                            height: 120,
+                            padding: const EdgeInsets.all(0),
+                            child: Row(children: [
+                              Expanded(
+                                flex: 6,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              data[index].image!
+                                             ),
+                                          fit: BoxFit.fill)),
+                                ),
                               ),
-                            ),
+                              const Spacer(
+                                flex: 1,
+                              ),
+                              Expanded(
+                                flex: 14,
+                                child: Container(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text(
+                                      maxLines: 2, data[index].title!,
+                                          style: const TextStyle(
+                                              fontSize: 15.0, fontWeight: FontWeight.bold)),
+                                  Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(data[index].description!,overflow: TextOverflow.ellipsis,maxLines: 4,
+                                                    style: const TextStyle(
+                                                        fontSize: 14.0, fontWeight: FontWeight.normal)),
+                                                const SizedBox(height: 2,)
 
-                            subtitle:  Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(data[index].description!,overflow: TextOverflow.ellipsis,maxLines: 3,
-                                      style: const TextStyle(
-                                          fontSize: 14.0, fontWeight: FontWeight.normal)),
+                                              ]),
 
-                                ]),
-                            onTap: () {
 
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>ScholarshipDetails(
-                                      image: data[index].image!, title: data[index].title!, website: data[index].website!, email: data[index].email!, address: data[index].address!, description: data[index].description!, phone: data[index].phone!)));
 
-                            },
-                          ));
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ),
+                      );
+
                     },
                   );
                 } else {

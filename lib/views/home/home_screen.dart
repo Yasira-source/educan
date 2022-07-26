@@ -1,6 +1,4 @@
-import 'package:educanapp/views/account/account.dart';
 import 'package:educanapp/views/help_page/help_page.dart';
-import 'package:educanapp/views/home/components/home_header.dart';
 import 'package:educanapp/views/share_page/share_page.dart';
 import 'package:educanapp/views/updates_page/updates_page.dart';
 import 'package:flutter/material.dart';

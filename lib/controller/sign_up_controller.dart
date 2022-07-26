@@ -41,7 +41,6 @@ class SignUpController extends GetxController with BaseController {
     return response;
   }
 
-
   postLessonOrder(String user_id, String mode, String details,
       String lclass, String subject, String concept,String attendants,String hours,String location) async {
     var request = {

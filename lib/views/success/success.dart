@@ -6,7 +6,6 @@ import '../../utils/constants_new.dart';
 import '../../utils/defaultButton.dart';
 import '../../utils/widgets/emptySection.dart';
 import '../../utils/widgets/subTitle.dart';
-import '../bottomNavBar/bottomNavBar.dart';
 
 class Success extends StatefulWidget {
    Success({Key? key,required this.sub}) : super(key: key);

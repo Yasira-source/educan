@@ -17,11 +17,13 @@ import '../topics_page/topics_page.dart';
 
 class SubjectsPage extends StatefulWidget {
   SubjectsPage(
-      {Key? key, required this.title, required this.catid, required this.subid})
+      {Key? key, required this.title, required this.catid, required this.subid,required this.limit,required this.plan})
       : super(key: key);
   String title;
   int catid;
   int subid;
+  String limit;
+  int plan;
 
   @override
   State<SubjectsPage> createState() => _SubjectsPageState();
@@ -161,6 +163,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
 
                                           subid: data[index].id!,
                                           clas: widget.subid,
+                                      limit:widget.limit,
+                                      plan:widget.plan
                                         )));
                               } else if (widget.catid == 1) {
                                 //lessons
@@ -169,6 +173,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
                                           title: data[index].name!,
                                           catid: data[index].id!,
                                           subid: widget.subid,
+                                        limit:widget.limit,
+                                        plan:widget.plan
                                         )));
                               } else if (widget.catid == 3) {
                                 //teacher resources
@@ -177,6 +183,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
 
                                       subid: data[index].id!,
                                       clas: widget.subid,
+                                        limit:widget.limit,
+                                        plan:widget.plan
                                     )));
                               }else if (widget.catid == 4) {
                                 //teacher resources
@@ -185,6 +193,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
                                       title: data[index].name!,
                                       clas: widget.subid.toString(),
                                       subid: data[index].id!,
+
                                     )));
                               }
                             },

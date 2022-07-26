@@ -15,11 +15,13 @@ import '../topics_page/topics_page.dart';
 import 'package:get/get.dart';
 class LibraryCategoriesPage2 extends StatefulWidget {
   LibraryCategoriesPage2(
-      {Key? key, required this.clas, required this.subid})
+      {Key? key, required this.clas, required this.subid,required this.limit,required this.plan})
       : super(key: key);
 
   int clas;
   String subid;
+  String limit;
+  int plan;
 
   @override
   State<LibraryCategoriesPage2> createState() => _LibraryCategoriesPage2State();
@@ -128,6 +130,8 @@ class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
                                 subid: widget.subid,
                                 clas: widget.clas.toString(),
                                 code: data[i].code!,
+                                limit:widget.limit,
+                                plan:widget.plan
                               )));
                         },
                         child: Card(

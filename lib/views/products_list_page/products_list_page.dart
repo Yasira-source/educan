@@ -1,17 +1,15 @@
 import 'dart:convert';
 
-import 'package:educanapp/controller/all_products_controller.dart';
-import 'package:educanapp/models/bookshop_model.dart';
-import 'package:educanapp/views/products_list_page/product_list_item.dart';
 import 'package:educanapp/views/products_list_page/product_list_item_2.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/ecom_cart_controller.dart';
 import '../../models/all_products_model.dart';
 import '../cart/cart_screen.dart';
+import '../product_details_page/ecom_product_details_page.dart';
+import '../search_pages/api_search_page.dart';
 
 class ProductsListPage extends StatefulWidget {
   BuildContext? context;
@@ -50,7 +48,9 @@ class _ProductsListPageState extends State<ProductsListPage> {
         elevation: 0,
         title: const Text("E-commerce"),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search_outlined)),
+          IconButton(onPressed: () {
+            showSearch(context: context, delegate: EducanSearchEcom());
+          }, icon: const Icon(Icons.search_outlined)),
           Stack(
             children: [
               IconButton(
@@ -84,7 +84,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildFilterWidgets(screenSize),
+            // _buildFilterWidgets(screenSize),
+            SizedBox(height: 10,),
             _buildProductsListPage(),
           ],
         ),
@@ -173,5 +174,125 @@ class _ProductsListPageState extends State<ProductsListPage> {
         ],
       ),
     );
+  }
+}
+
+class EducanSearchEcom extends SearchDelegate<String> {
+  @override
+  List<Widget> buildActions(BuildContext context) => [
+    IconButton(
+      icon: const Icon(Icons.clear),
+      onPressed: () {
+        if (query.isEmpty) {
+          Get.back();
+        } else {
+          query = '';
+          showSuggestions(context);
+        }
+      },
+    )
+  ];
+
+  @override
+  Widget buildLeading(BuildContext context) => IconButton(
+    icon: const Icon(Icons.arrow_back),
+    onPressed: () => Get.back(),
+  );
+
+  @override
+  Widget buildSuggestions(BuildContext context) => Container(
+    color: Colors.white,
+    child: FutureBuilder<List<ProductsData>>(
+      future: SearchPageApi.fetchDataEcom( 'ASC', query),
+      builder: (context, snapshot) {
+        if (query.isEmpty) return buildNoSuggestions();
+
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const Center(child: CircularProgressIndicator());
+          default:
+            if (snapshot.hasError || snapshot.data!.isEmpty) {
+              return buildNoSuggestions();
+            } else {
+              return buildSuggestionsSuccess(snapshot.data!);
+            }
+        }
+      },
+    ),
+  );
+
+  Widget buildNoSuggestions() => const Center(
+    child: Text(
+      'No suggestions!',
+      style: TextStyle(fontSize: 28, color: Colors.black),
+    ),
+  );
+
+  Widget buildSuggestionsSuccess(List<ProductsData> suggestions) =>
+      ListView.builder(
+        itemCount: suggestions.length,
+        itemBuilder: (context, index) {
+          final suggestion = suggestions[index];
+          // final queryText = suggestion.substring(0, query.length);
+          final queryText = suggestion.pname;
+          // final remainingText = suggestion.substring(query.length);
+          final remainingText = suggestion.pname;
+
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              onTap: () {
+                query = suggestion.pname!;
+
+                // 1. Show Results
+                // showResults(context);
+
+                // 2. Close Search & Return Result
+                // close(context, suggestion);
+
+                // 3. Navigate to Result Page
+                //  Navigato
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) => ResultPage(suggestion),
+                //   ),
+                // );
+
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => EcomProductDetailsView(
+                      code: 88,
+                      data: suggestion,
+                    )));
+              },
+              leading: Image.network("https://educanug.com/Educan/${suggestion.pimage1!}"),
+              // title: Text(suggestion),
+              title: RichText(
+                text: TextSpan(
+                  text: queryText,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                  children: const [
+                    TextSpan(
+                      text: '',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    throw UnimplementedError();
   }
 }

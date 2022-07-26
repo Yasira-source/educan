@@ -37,6 +37,12 @@ class CartController extends GetxController {
       _products.removeWhere((key, value) => key == product);
 
   }
+
+  void removeProduct3() {
+
+    _products.clear();
+
+  }
   get products => _products;
 
   get productSubtotal => _products.entries

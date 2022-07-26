@@ -58,119 +58,62 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          IntlPhoneField(
-            initialCountryCode: "UG",
-            // controller: phoneController,
-            decoration: const InputDecoration(
-              labelText: 'Phone Number',
-              border: OutlineInputBorder(
-                borderSide: BorderSide(),
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            IntlPhoneField(
+              initialCountryCode: "UG",
+              // controller: phoneController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(),
+                ),
               ),
+              onChanged: (phone) {
+                phoneNum = phone.number;
+              },
+              onCountryChanged: (country) {
+                // if (kDebugMode) {
+                //   print('Country changed to: ' + country.name);
+                // }
+              },
             ),
-            onChanged: (phone) {
-              phoneNum = phone.number;
-            },
-            onCountryChanged: (country) {
-              // if (kDebugMode) {
-              //   print('Country changed to: ' + country.name);
-              // }
-            },
-          ),
-          buildNamesFormField(),
-          SizedBox(height: 30),
-          buildEmailFormField(),
-          SizedBox(height: 30),
-          buildPasswordFormField(),
-          SizedBox(height: 30),
-          buildConformPassFormField(),
-          FormError(errors: errors),
-          SizedBox(height: 40),
-          DefaultButton(
-            text: "Join Us",
-            press: () async {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
+            buildNamesFormField(),
+            SizedBox(height: 30),
+            buildEmailFormField(),
+            SizedBox(height: 30),
+            buildPasswordFormField(),
+            SizedBox(height: 30),
+            buildConformPassFormField(),
+            FormError(errors: errors),
+            SizedBox(height: 40),
+            DefaultButton(
+              text: "Join Us",
+              press: () async {
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
 
-                // print(phoneController!.text);
-                // print(password);
-                // print(phoneNum);
+                  result = await controller.postData(
+                      names!, email!, phoneNum!, "F", "", password!);
+                  print(result);
+                  var got = json.decode(result);
+                  // print(got['message']);
+                  if (got['success']) {
+                    Get.off(() => LoginSuccessScreen());
+                  } else {
+                    _showMyDialog();
+                  }
+                  // if all are valid then go to success screen
 
-                result = await controller.postData(
-                    names!, email!, phoneNum!, "F", "", password!);
-                // print(result);
-                var got = json.decode(result);
-                // print(got['message']);
-                if (got['success']) {
-                  Get.off(() => LoginSuccessScreen());
-                } else {
-                  _showMyDialog2();
                 }
-                // if all are valid then go to success screen
-
-              }
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
-    );
-  }
-
-  Future<void> _showMyDialog(String em) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Failed!'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children:  <Widget>[
-                Text(em),
-                // Text("Choose another one"),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  Future<void> _showMyDialog2() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Process Failed!'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('Kindly enter correct Phone Number '),
-                Text('and Password to Continue'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
   TextFormField buildConformPassFormField() {
@@ -332,4 +275,33 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registration Failed!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Kindly try again '),
+                Text(' to Continue '),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

@@ -2,10 +2,13 @@ import 'package:educanapp/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/cart_controller.dart';
 import '../../controller/ecom_cart_controller.dart';
 import '../../utils/constants_new.dart';
+import '../payment_options/payment_options.dart';
+import '../payment_options/payment_options_2.dart';
 import 'components/body.dart';
 import 'components/body_2.dart';
 import 'components/check_out_card.dart';
@@ -18,6 +21,7 @@ class CartScreen extends StatelessWidget {
   final ecomCartController = Get.put(EcomCartController());
   // final CartController controller = Get.find();
   var f = NumberFormat("###,###", "en_US");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +136,14 @@ class CartScreen extends StatelessWidget {
               //         textAlign: TextAlign.center, style: kSubTextStyle)),
               const SizedBox(width: 10),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  final Uri launchUri = Uri(
+                    scheme: 'tel',
+                    path: '+256789684676',
+                  );
+                  launchUrl(launchUri);
+
+                },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: Container(
@@ -176,7 +187,12 @@ class CartScreen extends StatelessWidget {
                                 fontSize: 16.0,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => () {}),
+                        onPressed: () => () {
+
+                          Get.to(()=>PaymentOptions(
+                                amount: (cartController.total + ecomCartController.total).toString(),
+                          ));
+                        }),
                   ),
                 )
               else if (cartController.products.length == 0 &&
@@ -193,7 +209,12 @@ class CartScreen extends StatelessWidget {
                                 fontSize: 16.0,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => () {}),
+                        onPressed: () => () {
+
+                          Get.to(()=>PaymentOptions(
+                                amount: ecomCartController.total.toString(),
+                              ));
+                        }),
                   ),
                 )
               else if (ecomCartController.products.length == 0 &&
@@ -210,7 +231,13 @@ class CartScreen extends StatelessWidget {
                                   fontSize: 16.0,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.bold)),
-                          onPressed: () => () {}),
+                          onPressed: () {
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => PaymentOptions(
+                                  amount: cartController.total.toString(),
+                                )));
+                          }),
                     ),
                   )
                 else

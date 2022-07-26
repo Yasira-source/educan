@@ -3,14 +3,10 @@ import 'dart:convert';
 import 'package:awesome_card/awesome_card.dart';
 import 'package:educanapp/models/sub_plans.dart';
 import 'package:educanapp/utils/constants_new.dart';
-import 'package:educanapp/utils/widgets/stickyLabel.dart';
-import 'package:educanapp/views/notification/components/defaultAppBar.dart';
-import 'package:educanapp/views/notification/components/defaultBackButton.dart';
 import 'package:educanapp/views/subscription_page/subscription_page_second.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
@@ -142,20 +138,20 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
                       bankName: _pname,
                       cvv: cvv,
                       // showBackSide: true,
-                      frontBackground: CardBackgrounds.black,
+                      frontBackground: CardBackgrounds.custom(0xFF1A8F00),
                       backBackground: CardBackgrounds.white,
                       cardType: CardType.other,
                       showShadow: true,
                     );
                   } else {
                     return CreditCard(
-                      cardNumber: '',
-                      cardExpiry: '',
-                      cardHolderName: '',
+                      cardNumber: '-',
+                      cardExpiry: '-',
+                      cardHolderName: '-',
                       bankName: _pname,
-                      cvv: '',
+                      cvv: '-',
                       // showBackSide: true,
-                      frontBackground: CardBackgrounds.black,
+                      frontBackground: CardBackgrounds.custom(0xFF1A8F00),
                       backBackground: CardBackgrounds.white,
                       cardType: CardType.other,
                       showShadow: true,
@@ -181,7 +177,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 itemCount: 3,
                 itemBuilder: (ctx, i) {
-                  return _buildCard(plans[i]);
+                  return SizedBox(height:20,child: _buildCard(plans[i]));
                 },
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -210,7 +206,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
       child: Card(
         child: Center(
           child: Container(
-            height: 30,
+            height: 20,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
             // margin: const EdgeInsets.all(5),
             // padding: const EdgeInsets.all(5),

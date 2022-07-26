@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../controller/cart_controller.dart';
@@ -16,6 +17,22 @@ class Body2 extends StatefulWidget {
 class _Body2State extends State<Body2> {
 
   final ecomCartController = Get.put(EcomCartController());
+  String uid = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounterx();
+
+  }
+
+  _loadCounterx() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+
+      uid = (prefs.getString('uid') ?? '');
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
@@ -32,6 +49,7 @@ class _Body2State extends State<Body2> {
                     cart: ecomCartController.products.keys.toList()[index],
                     quantity: ecomCartController.products.values.toList()[index],
                     index: index,
+                    uid: uid,
                   );
                 }),
 

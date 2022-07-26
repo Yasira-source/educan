@@ -1,6 +1,10 @@
+import 'package:educanapp/views/referrals/referrals_page.dart';
+import 'package:educanapp/views/updates_page/updates_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../orders/orders_page.dart';
 import '../../sign_in/sign_in_screen.dart';
+import '../../update_account/profile_page.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
@@ -16,23 +20,43 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Update Account",
             icon: "assets/icons/User Icon.svg",
-            press: () => {},
+            press: () => {
+            Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProfilePage(
+
+            )))
+            },
           ),
           ProfileMenu(
             text: "Orders",
             icon: "assets/icons/Bell.svg",
-            press: () {},
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Buying(
+
+                  )));
+            },
           ),
-          ProfileMenu(
-            text: "App Referrals",
-            icon: "assets/icons/Settings.svg",
-            press: () {},
-          ),
-          ProfileMenu(
-            text: "Notifications",
-            icon: "assets/icons/Question mark.svg",
-            press: () {},
-          ),
+          // ProfileMenu(
+          //   text: "App Referrals",
+          //   icon: "assets/icons/Settings.svg",
+          //   press: () {
+          //     Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (context) => ReferralsPage(
+          //
+          //         )));
+          //   },
+          // ),
+          // ProfileMenu(
+          //   text: "Notifications",
+          //   icon: "assets/icons/Question mark.svg",
+          //   press: () {
+          //     Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (context) => UpdatesPage(
+          //
+          //         )));
+          //   },
+          // ),
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",

@@ -223,7 +223,6 @@ class PopularProducts extends StatelessWidget {
     ),
                        );
 
-
                             }
                           })
                   : FutureBuilder<List<ProductsData>>(

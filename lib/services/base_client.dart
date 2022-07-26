@@ -35,7 +35,26 @@ class BaseClient {
       throw ApiNotRespondingException('API not responded in time', uri.toString());
     }
   }
-
+  //POST WITH HEADERS - for flutterwave initiate payment
+  Future<dynamic> postH(String baseUrl, String api, dynamic payloadObj) async {
+    var uri = Uri.parse(baseUrl + api);
+    var payload = json.encode(payloadObj);
+    try {
+      var response = await http.post(uri, headers: {
+        'Authorization': 'Bearer FLWSECK-1ac1d3c428bf1604526bf7338af16b9d-X',
+        'content-type': 'application/json',
+        // 'accept': 'application/json',
+        // 'Content-Type': 'application/json-patch+json',
+      },body: payload).timeout(Duration(seconds: TIME_OUT_DURATION));
+      var responseJson = utf8.decode(response.bodyBytes);
+      return responseJson;
+      // return _processResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection', uri.toString());
+    } on TimeoutException {
+      throw ApiNotRespondingException('API not responded in time', uri.toString());
+    }
+  }
   //DELETE
   //OTHER
 

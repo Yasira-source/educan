@@ -62,7 +62,7 @@ class _EduTalkDetailPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Educan Lessons'),
+        title: const Text('Educan Talk'),
         backgroundColor:  const Color(0xFF1A8F00),
       ),
       body: _buildContent(context),

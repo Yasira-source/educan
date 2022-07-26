@@ -38,6 +38,12 @@ class EcomCartController extends GetxController {
 
   }
 
+  void removeProduct3() {
+
+    _products.clear();
+
+  }
+
   get products => _products;
 
   get productSubtotal => _products.entries

@@ -12,6 +12,7 @@ import '../../controller/cart_controller.dart';
 import '../../controller/ecom_cart_controller.dart';
 import '../../models/all_products_model.dart';
 import '../cart/cart_screen.dart';
+import '../home/components/search_field.dart';
 
 class ProductsListPage2 extends StatefulWidget {
   BuildContext? context;
@@ -50,7 +51,9 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
         elevation: 0,
         title: const Text("Bookshop"),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search_outlined)),
+          IconButton(onPressed: () {
+            showSearch(context: context, delegate: EducanSearch());
+          }, icon: const Icon(Icons.search_outlined)),
           Stack(
             children: [
               IconButton(
@@ -84,7 +87,8 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildFilterWidgets(screenSize),
+            // _buildFilterWidgets(screenSize),
+            SizedBox(height: 10,),
             _buildProductsListPage(),
           ],
         ),

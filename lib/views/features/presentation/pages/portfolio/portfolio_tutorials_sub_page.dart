@@ -9,11 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../../models/all_topic_videos.dart';
+import '../../../../success/subs_check_page.dart';
 
 class PortfolioTutorialsSubPage extends StatelessWidget {
-   PortfolioTutorialsSubPage({Key? key,required this.topid,required this.topname}) : super(key: key);
+   PortfolioTutorialsSubPage({Key? key,required this.topid,required this.topname,required this.limit,required this.plan,required this.cla}) : super(key: key);
   String topid;
   String topname;
+  String limit;
+  int plan;
+  String cla;
 
 
   Future<List<TopicsVideosData>> fetchTopicVideos(String tag) async {
@@ -21,7 +25,7 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
         'https://educanug.com/educan_new/educan/api/library/get_topic_videos.php?topic=$tag'));
     // if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
-    print(jsonResponse);
+    // print(jsonResponse);
     return jsonResponse.map((data) => TopicsVideosData.fromJson(data)).toList();
     // } else {
     //   throw Exception('Unexpected error occured!');
@@ -83,7 +87,7 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
               itemExtent: 100,
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return _buildListItem(context, data![index]);
+                  return _buildListItem(context, data![index],limit,plan);
                 },
                 childCount: data!.length,
               ),
@@ -99,12 +103,12 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
         });
   }
 
-  Widget _buildListItem(BuildContext context,  TopicsVideosData tutorial) {
+  Widget _buildListItem(BuildContext context,  TopicsVideosData tutorial,String limit,int plan) {
     return Stack(
       children: <Widget>[
         _buildCardView(tutorial.title!, tutorial.logo!),
         _buildRippleEffectNavigation(
-            context, tutorial.details!, tutorial.logo!, tutorial.link!, tutorial.title!),
+            context, tutorial.details!, tutorial.logo!, tutorial.link!, tutorial.title!,limit,plan,tutorial.forsubscribe!,cla),
       ],
     );
   }
@@ -158,7 +162,7 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
   }
 
   Widget _buildRippleEffectNavigation(
-      BuildContext context, String desc, String imageUrl, String videoUrl,String tit) {
+      BuildContext context, String desc, String imageUrl, String videoUrl,String tit,String limit,int plan,String fors,String cla) {
     return Positioned.fill(
       child: Material(
         color: Colors.transparent,
@@ -166,9 +170,40 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
           splashColor: const Color(0xFF1A8F00).withOpacity(0.5),
           highlightColor: const Color(0xFF1A8F00).withOpacity(0.5),
           onTap: () {
-            Navigator.of(context).push(
-              _createTutorialDetailRoute(desc, imageUrl, videoUrl,tit),
-            );
+            var cl;
+            if(fors=='T') {
+              if (plan == 1) {
+                if(int.parse(cla)<=7 && int.parse(cla)>0){
+                  cl ='3';
+                }else {
+                  cl = '2';
+                }
+                if (limit == '1' || limit==cl) {
+                  Navigator.of(context).push(
+                    _createTutorialDetailRoute(desc, imageUrl, videoUrl, tit),
+                  );
+                }else{
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SubscribeMessage(
+
+
+
+                      )));
+                }
+              }else{
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SubscribeMessage(
+
+
+
+                    )));
+              }
+            }else {
+              Navigator.of(context).push(
+                _createTutorialDetailRoute(desc, imageUrl, videoUrl, tit),
+              );
+            }
+
           },
 
           //* FilePicker to get video path from phone storage

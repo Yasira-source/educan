@@ -93,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           )
         ],
       ),
-      body: Body(),
+      body: SingleChildScrollView(child: Body()),
     );
   }
 }

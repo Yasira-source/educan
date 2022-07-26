@@ -6,6 +6,7 @@ import 'package:educanapp/utils/constants_new.dart';
 import 'package:educanapp/utils/widgets/stickyLabel.dart';
 import 'package:educanapp/views/notification/components/defaultAppBar.dart';
 import 'package:educanapp/views/notification/components/defaultBackButton.dart';
+import 'package:educanapp/views/payment_options/payment_options_2.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class _SubscriptionSecondState extends State<SubscriptionSecond> {
   final cartController = Get.put(CartController());
   final ecomCartController = Get.put(EcomCartController());
   var f = NumberFormat("###,###", "en_US");
+
   Future<List<SubData>> fetchPlans(String tag) async {
     final response = await http.get(Uri.parse(
         'https://educanug.com/educan_new/educan/api/library/get_plans_second.php?access=$tag'));
@@ -149,8 +151,9 @@ class _SubscriptionSecondState extends State<SubscriptionSecond> {
     return  GestureDetector(
       onTap: (){
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => PaymentOptions(
-
+            builder: (context) => PaymentOptions2(
+amount: x.amount.toString(),
+              planId: x.id.toString(),
             )));
       },
       child: Container(

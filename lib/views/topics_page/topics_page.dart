@@ -10,12 +10,13 @@ import 'package:http/http.dart' as http;
 import '../../models/all_topics.dart';
 import '../features/presentation/pages/portfolio/portfolio_tutorials_sub_page.dart';
 class TopicsPage extends StatefulWidget {
-  TopicsPage({Key? key, required this.title, required this.catid,required this.subid})
+  TopicsPage({Key? key, required this.title, required this.catid,required this.subid,required this.limit,required this.plan})
       : super(key: key);
   String title;
   String catid;
   int subid;
-
+String limit;
+int plan;
   @override
   State<TopicsPage> createState() => _TopicsPageState();
 }
@@ -25,7 +26,7 @@ Future<List<TopicsData>> fetchTopics(String tag,String subj) async {
       'https://educanug.com/educan_new/educan/api/library/get_topics.php?class=$tag&subject=$subj'));
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
-  print(jsonResponse);
+  // print(jsonResponse);
   return jsonResponse.map((data) => TopicsData.fromJson(data)).toList();
   // } else {
   //   throw Exception('Unexpected error occured!');
@@ -133,7 +134,7 @@ class _TopicsPageState extends State<TopicsPage> {
                                 //     ]),
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PortfolioTutorialsSubPage(topid: data[index].id!,topname: data[index].name!,)));
+                                      builder: (context) => PortfolioTutorialsSubPage(topid: data[index].id!,topname: data[index].name!,limit:widget.limit,plan:widget.plan,cla:widget.catid)));
 
                                 },
                               )

@@ -1,3 +1,5 @@
+import 'package:educanapp/views/payment_options/payment_methods.dart';
+import 'package:educanapp/views/payment_options/payment_methods_2.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,7 +11,9 @@ import 'package:get/get.dart';
 import 'card_for_option.dart';
 
 class PaymentOptions extends StatefulWidget {
-  PaymentOptions({Key? key}) : super(key: key);
+  PaymentOptions({Key? key,required this.amount}) : super(key: key);
+
+  String amount;
   @override
   State<PaymentOptions> createState() => _PaymentOptionsState();
 }
@@ -92,7 +96,12 @@ class _PaymentOptionsState extends State<PaymentOptions> {
               text: "Flutter Wave",
               text2: "Click to Pay Using Flutterwave Method",
               icon: "assets/images/flutterwave.png",
-              press: () => {},
+              press: () => {
+              Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => TimePreferencesWidget(
+widget.amount
+              ))),
+              },
             ),
           ],
         ),

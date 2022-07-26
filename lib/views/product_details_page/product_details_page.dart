@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/cart_controller.dart';
 import '../../models/all_products_model.dart';
@@ -307,6 +308,11 @@ BookshopData data;
           children: [
             GestureDetector(
               onTap: (){
+                final Uri launchUri = Uri(
+                  scheme: 'tel',
+                  path: '+256757438443',
+                );
+                launchUrl(launchUri);
 
               },
               child: Container(

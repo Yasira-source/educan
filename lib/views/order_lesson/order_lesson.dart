@@ -2,6 +2,7 @@
 
 import 'package:educanapp/views/success/success.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:get/get.dart';
@@ -31,7 +32,7 @@ class _OrderLessonState extends State<OrderLesson> {
 
   var result;
   final controller = SignUpController();
-
+  var f = NumberFormat("###,###", "en_US");
   @override
   void initState() {
     super.initState();
@@ -59,7 +60,7 @@ class _OrderLessonState extends State<OrderLesson> {
                   colorScheme:
                       const ColorScheme.light(primary: Color(0xFF1A8F00))),
               child: Stepper(
-                // type: StepperType.horizontal,
+                type: StepperType.horizontal,
                 steps: getSteps(),
                 currentStep: currentStep,
                 onStepTapped: (step) => setState(() => currentStep = step),
@@ -241,6 +242,7 @@ class _OrderLessonState extends State<OrderLesson> {
               Text("More than 3 Students"),
               SizedBox(height: 3,),
               Text("Virtual Lesson : UGX 10,000 per student\nPhysical Lesson : UGX 20,000 per student"),
+
             ],
           ),
         ),
@@ -270,12 +272,14 @@ class _OrderLessonState extends State<OrderLesson> {
               ),
               const SizedBox(height: 3,),
 
-              Text("Amount Per Student: UGX "+getAmount(attend.text==""?int.parse("0"):int.parse(attend.text), mode.text)),
+              Text("Amount Per Student: UGX "+f.format(int.parse(getAmount(attend.text==""?int.parse("0"):int.parse(attend.text), mode.text)))),
               const SizedBox(height: 3,),
-              Text("Total Amount: UGX "+getTotalAmount(attend.text==""?int.parse("0"):int.parse(attend.text), mode.text)),
+              Text("Total Amount: UGX "+f.format(int.parse(getTotalAmount(attend.text==""?int.parse("0"):int.parse(attend.text), mode.text,chours.text==""?int.parse("0"):int.parse(chours.text))))),
               const Divider(
                   color: Color(0xFF1A8F00)
               ),
+              const SizedBox(height: 3,),
+              Text("Please note that these fees are inclusive of lesson notes, exercises, marking and any other support materials for a successful lesson delivery.",overflow: TextOverflow.ellipsis,maxLines: 3,),
             ],
           ),
         ),
@@ -306,24 +310,24 @@ amp = 20000;
   return amp.toString();
 }
 
-getTotalAmount(int attend , String mode){
+getTotalAmount(int attend , String mode,int sx){
   int amp;
   int tot;
   if(mode == "Virtual") {
     if (attend >= 1 && attend <= 3) {
       amp = 20000;
-      tot = amp *attend;
+      tot = amp *attend*sx;
     } else {
       amp = 10000;
-      tot = amp *attend;
+      tot = amp *attend*sx;
     }
   }else {
     if (attend >= 1 && attend <= 3) {
       amp = 40000;
-      tot = amp *attend;
+      tot = amp *attend*sx;
     } else {
       amp = 20000;
-      tot = amp *attend;
+      tot = amp *attend*sx;
     }
   }
   return tot.toString();

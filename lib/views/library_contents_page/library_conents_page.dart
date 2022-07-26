@@ -7,16 +7,18 @@ import 'package:http/http.dart' as http;
 
 import '../../models/library_topic_items.dart';
 import '../pdf_viewer_page/pdf_viewer_page.dart';
+import '../success/subs_check_page.dart';
 
 class LibraryContentsPage extends StatefulWidget {
   LibraryContentsPage(
-      {Key? key, required this.title, required this.clas, required this.subid,required this.code})
+      {Key? key, required this.title, required this.clas, required this.subid,required this.code,required this.limit,required this.plan})
       : super(key: key);
   String title;
   String clas;
   String subid;
   String code;
-
+String limit;
+int plan;
   @override
   State<LibraryContentsPage> createState() => _LibraryContentsPageState();
 }
@@ -49,7 +51,7 @@ Future<List<LibraryTopicItems>> fetchContents(String cl,String sub,String c) asy
 
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
-  print(jsonResponse);
+  // print(jsonResponse);
   return jsonResponse.map((data) => LibraryTopicItems.fromJson(data)).toList();
   // } else {
   //   throw Exception('Unexpected error occured!');
@@ -107,59 +109,109 @@ class _LibraryContentsPageState extends State<LibraryContentsPage> {
                     itemCount: data!.length,
                     physics: const ScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return Card(
-                          elevation: 1,
-                          margin: const EdgeInsets.all(5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(2.0),
-                          ),
-                          child: ListTile(
-                            leading: data[index].logo != null ? Image.network(
-                                 data[index].logo!,
-
-                            ) : Image.asset(
-                                "assets/images/dp.png"),
-                            dense: true,
-
-                            title: Text(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              data[index].title!,
-                              style: const TextStyle(
-                                fontSize: 15.0,
-                              ),
-                            ),
-                            // trailing: const Icon(
-                            //   Icons.arrow_forward_ios,
-                            //   size: 15,
-                            //   color: Color(0xFF1A8F00),
-                            // ),
-                            subtitle:  Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                   Text(data[index].description!,
-                                       overflow: TextOverflow.ellipsis,
-                                      maxLines: 4,
-                                      style: const TextStyle(
-                                          fontSize: 14.0, fontWeight: FontWeight.normal)),
-                                   // Text('Population: ${data[index].id}',
-                                   //    style:  const TextStyle(
-                                   //        fontSize: 12.0, fontWeight: FontWeight.normal)),
-                                ]),
-                            onTap: () {
-
+                      return GestureDetector(
+                        onTap: (){
+                          if(data[index].forsubscribe=='T') {
+                            if (widget.plan == 1) {
+                              var cl;
+                              if (int.parse(widget.clas) <= 7 &&
+                                  int.parse(widget.clas) > 0) {
+                                cl = '3';
+                              } else {
+                                cl = '2';
+                              }
+                              if (widget.limit == '1' || widget.limit == cl) {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => PDFDoc(
+                                    builder: (context) =>
+                                        PDFDoc(
+
+                                          link: data[index].link!,
+                                          title: data[index].title!,
+
+
+                                        )));
+                              }else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                    const SubscribeMessage(
+
+
+                                    )));
+                              }
+                            }else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                  const SubscribeMessage(
+
+
+                                  )));
+                            }
+                          }else {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    PDFDoc(
 
                                       link: data[index].link!,
                                       title: data[index].title!,
 
 
                                     )));
+                          }
+                             },
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: Container(
+                            height: 120,
+                            padding: const EdgeInsets.all(0),
+                            child: Row(children: [
+                              Expanded(
+                                flex: 6,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              data[index].logo!
+                                          ),
+                                          fit: BoxFit.fill)),
+                                ),
+                              ),
+                              const Spacer(
+                                flex: 1,
+                              ),
+                              Expanded(
+                                flex: 14,
+                                child: Container(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text(
+                                          maxLines: 2, data[index].title!,
+                                          style: const TextStyle(
+                                              fontSize: 15.0, fontWeight: FontWeight.bold)),
+                                      Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(data[index].description!,overflow: TextOverflow.ellipsis,maxLines: 4,
+                                                style: const TextStyle(
+                                                    fontSize: 14.0, fontWeight: FontWeight.normal)),
+                                            const SizedBox(height: 2,)
 
-                            },
-                          ));
+                                          ]),
+
+
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ),
+                      );
+
                     },
                   );
                 } else {

@@ -103,13 +103,13 @@ final labels = [
 ];
 
 final primary = [
-  'assets/images/p1.jpg',
-  'assets/images/p2.jpg',
-  'assets/images/p3.jpg',
-  'assets/images/p4.jpg',
-  'assets/images/p5.jpg',
-  'assets/images/p6.jpg',
-  'assets/images/p7.jpg',
+  'assets/class_img/p1.png',
+  'assets/class_img/p2.png',
+  'assets/class_img/p3.png',
+  'assets/class_img/p4.png',
+  'assets/class_img/p5.png',
+  'assets/class_img/p6.png',
+  'assets/class_img/p7.png',
  
 ];
 
@@ -157,10 +157,10 @@ final olevelnewCount = [
   17,
 ];
 final olevel = [
-  'assets/images/s1.jpg',
-  'assets/images/s2.jpg',
-  'assets/images/s3.jpg',
-  'assets/images/s4.jpg',
+  'assets/class_img/s1.png',
+  'assets/class_img/s2.png',
+  'assets/class_img/s3.png',
+  'assets/class_img/s4.png',
  
 ];
 
@@ -174,8 +174,8 @@ final olevelWords = [
 ];
 
 final alevel = [
-  'assets/images/s5.jpg',
-  'assets/images/s6.jpg',
+  'assets/class_img/s5.png',
+  'assets/class_img/s6.png',
  
 ];
 

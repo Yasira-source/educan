@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/cart_controller.dart';
 import '../../controller/ecom_cart_controller.dart';
@@ -33,7 +35,7 @@ Future<List<ConsultantsData>> fetchConsultants(String cl,String sub) async {
 
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
-  print(jsonResponse);
+  // print(jsonResponse);
   return jsonResponse.map((data) => ConsultantsData.fromJson(data)).toList();
   // } else {
   //   throw Exception('Unexpected error occured!');
@@ -157,19 +159,42 @@ class _ConsultantsPageState extends State<ConsultantsPage> {
                                     children: [
 
                                       TextButton(
-                                        style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                        style: TextButton.styleFrom(
+                                          primary:  Colors.white,
+                                          backgroundColor: const Color(0xFF1A8F00),// Text Color
                                         ),
-                                        onPressed: () { },
+                                        // style: ButtonStyle(
+                                        //   backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                                        //   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                        // ),
+                                        onPressed: () {
+                                          final Uri launchUri = Uri(
+                                            scheme: 'tel',
+                                            path: '+256${data[index].phone!}',
+                                          );
+                                          launchUrl(launchUri);
+                                        },
                                         child: const Text('CALL'),
                                       ),
                                       TextButton(
-                                        style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                        style: TextButton.styleFrom(
+                                          primary:  Colors.white,
+                                          backgroundColor: const Color(0xFF1A8F00),// Text Color
                                         ),
-                                        onPressed: () { },
+                                        // style: ButtonStyle(
+                                        //   backgroundColor:  Color(0xFF1A8F00),
+                                        //   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                        // ),
+                                        onPressed: () {
+                                          if( canLaunch(openWhatsapp(data[index].phone!)) != null){
+                                            launch(openWhatsapp(data[index].phone!));
+                                          }
+                                          else {
+                                            throw 'Could not launch ${openWhatsapp(data[index].phone!)}';
+                                          }
+
+
+                                        },
                                         child: const Text('CHAT'),
                                       )
                                     ],
@@ -203,5 +228,17 @@ class _ConsultantsPageState extends State<ConsultantsPage> {
         ]),
       ),
     );
+  }
+
+  openWhatsapp(String phon) {
+    var phone = "+256$phon";
+    var message ="Hello, Educan APP";
+    if (Platform.isAndroid) {
+      // add the [https]
+      return "https://wa.me/$phone/?text=${Uri.parse(message)}"; // new line
+    } else {
+      // add the [https]
+      return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse(message)}"; // new line
+    }
   }
 }
