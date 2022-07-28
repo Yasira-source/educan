@@ -35,7 +35,7 @@ class _ScholarshipDetailsState extends State<ScholarshipDetails> {
             const SizedBox(height: 10,),
             Text(widget.title,style: const TextStyle(color: Colors.deepPurple,fontWeight: FontWeight.bold),),
             Text(widget.address),
-            Text('Phone : ${widget.phone}'),
+            Text('Contact Us : ${widget.phone}'),
             Text('Email Us : ${widget.email}'),
             Text('Website : ${widget.website}'==null?"":widget.website),
             const SizedBox(height: 10,),

@@ -6,11 +6,11 @@ import 'package:educanapp/utils/constants_new.dart';
 import 'package:educanapp/views/subscription_page/subscription_page_second.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../models/sub_status_model.dart';
 import '../cart/cart_screen.dart';
 
@@ -28,10 +28,19 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
   String upname = '';
   String uid = '';
 
+  void secureScreen() async {
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.clearFlags(
+        FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
+
   @override
   void initState() {
     super.initState();
+    secureScreen();
     _loadCounter();
+    // futureAlbum = fetchSubStatus(uid);
   }
 
   _loadCounter() async {
@@ -45,7 +54,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
   }
 
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
 
   String cardNumber = "5450 7879 4864 7854",
       cardExpiry = "10/25",
@@ -101,7 +110,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                                ecomCartController.products.length ==
+                        cartController.productsx.length ==
                             0
                         ? Container()
                         : Container(
@@ -109,7 +118,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
                             decoration: const BoxDecoration(
                                 color: Colors.red, shape: BoxShape.circle),
                             child: Text(
-                              '${cartController.products.length + ecomCartController.products.length}',
+                              '${cartController.products.length + cartController.productsx.length}',
                               style: const TextStyle(fontSize: 12),
                             ),
                           )),
@@ -174,10 +183,10 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
             Center(
               child: GridView.builder(
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 70),
                 itemCount: 3,
                 itemBuilder: (ctx, i) {
-                  return SizedBox(height:20,child: _buildCard(plans[i]));
+                  return _buildCard(plans[i]);
                 },
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

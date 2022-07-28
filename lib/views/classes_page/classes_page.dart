@@ -4,11 +4,11 @@ import 'package:educanapp/models/check_subs.dart';
 import 'package:educanapp/utils/constants_new.dart';
 import 'package:educanapp/views/subjects_page/subjects_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 
 import 'package:http/http.dart' as http;
@@ -25,7 +25,7 @@ class ClassesPage extends StatefulWidget {
 class _ClassesPageState extends State<ClassesPage> {
 
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
 String uid ='';
   // late Future<SubsData> futureAlbum;
 
@@ -47,9 +47,17 @@ String uid ='';
 
     });
   }
+  void secureScreen() async {
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.clearFlags(
+        FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
+
   @override
   void initState() {
     super.initState();
+    secureScreen();
     _loadCounterx();
     // futureAlbum = fetchSubStatus(uid);
   }
@@ -83,7 +91,7 @@ String uid ='';
                       top: 0,
                       right: 6,
 
-                      child:cartController.products.length+ecomCartController.products.length==0?
+                      child:cartController.products.length+cartController.productsx.length==0?
                       Container()
                           :
                       Container(
@@ -94,7 +102,7 @@ String uid ='';
                             shape: BoxShape.circle),
                         child:
                         Text(
-                          '${cartController.products.length+ecomCartController.products.length}',
+                          '${cartController.products.length+cartController.productsx.length}',
                           style: const TextStyle(fontSize: 12),
                         ),
 

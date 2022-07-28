@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +26,7 @@ class _PaymentOptions2State extends State<PaymentOptions2> {
   String uid = '';
   String email = '';
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   @override
   void initState() {
     super.initState();
@@ -71,7 +70,7 @@ class _PaymentOptions2State extends State<PaymentOptions2> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                        ecomCartController.products.length ==
+                        cartController.productsx.length ==
                         0
                         ? Container()
                         : Container(
@@ -79,7 +78,7 @@ class _PaymentOptions2State extends State<PaymentOptions2> {
                       decoration: const BoxDecoration(
                           color: Colors.red, shape: BoxShape.circle),
                       child: Text(
-                        '${cartController.products.length + ecomCartController.products.length}',
+                        '${cartController.products.length + cartController.productsx.length}',
                         style: const TextStyle(fontSize: 12),
                       ),
                     )),

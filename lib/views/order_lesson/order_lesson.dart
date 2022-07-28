@@ -27,7 +27,7 @@ class _OrderLessonState extends State<OrderLesson> {
   final chours = TextEditingController();
   final topic = TextEditingController();
   final mode = TextEditingController();
-  bool _isRadioSelected = false;
+  bool _isRadioSelected = true;
   String _pname = '';
 
   var result;
@@ -36,6 +36,7 @@ class _OrderLessonState extends State<OrderLesson> {
   @override
   void initState() {
     super.initState();
+    mode.text ="Physical";
     _loadCounterx();
   }
   _loadCounterx() async {
@@ -126,7 +127,7 @@ class _OrderLessonState extends State<OrderLesson> {
                 label: 'Virtual Lesson',
                 descr: 'Via Zoom',
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                value: true,
+                value: false,
                 groupValue: _isRadioSelected,
                 onChanged: (bool newValue) {
                   setState(() {
@@ -139,7 +140,7 @@ class _OrderLessonState extends State<OrderLesson> {
                 label: 'Physical Lesson',
                 descr: 'Meet Teacher Physically',
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                value: false,
+                value: true,
                 groupValue: _isRadioSelected,
                 onChanged: (bool newValue) {
                   setState(() {
@@ -252,7 +253,7 @@ class _OrderLessonState extends State<OrderLesson> {
           title: const Text("Submit"),
           content: Column(
             children:  [
-              const Text("Below is the Provided info :",),
+              const Text("Lesson Order Summary :",),
               const SizedBox(height: 6,),
               Text("Mode of Delivery: ${mode.text}"),
               const SizedBox(height: 3,),

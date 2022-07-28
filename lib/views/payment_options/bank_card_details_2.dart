@@ -12,7 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../controller/flutterwave_payments_controller.dart';
 import '../../models/all_products_model.dart';
 import '../../models/bookshop_model.dart';
@@ -38,7 +37,7 @@ class BankCardDetails2State extends State<BankCardDetails2> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final controller = FlutterWavePaymentsController();
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   String email = '';
   String uid = '';
   String _pname = '';
@@ -112,7 +111,7 @@ class BankCardDetails2State extends State<BankCardDetails2> {
                   //   launch(url);
                   _launchUrl(Uri.parse(json.decode(result2)));
                     cartController.removeProduct3();
-                    ecomCartController.removeProduct3();
+                  cartController.removeProduct3();
                     Get.to(()=>Success(
                       sub: "Your Order has been made Successfully!",
                     ));

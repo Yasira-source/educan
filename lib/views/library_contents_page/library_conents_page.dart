@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'package:http/http.dart' as http;
@@ -59,6 +60,19 @@ Future<List<LibraryTopicItems>> fetchContents(String cl,String sub,String c) asy
 }
 
 class _LibraryContentsPageState extends State<LibraryContentsPage> {
+
+  void secureScreen() async {
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    // await FlutterWindowManager.addFlags(
+    //     FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    secureScreen();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

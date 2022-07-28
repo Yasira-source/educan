@@ -5,7 +5,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../utils/constants_new.dart';
 import '../payment_options/payment_options.dart';
 import '../payment_options/payment_options_2.dart';
@@ -18,7 +17,7 @@ class CartScreen extends StatelessWidget {
   static String routeName = "/cart";
 
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   // final CartController controller = Get.find();
   var f = NumberFormat("###,###", "en_US");
 
@@ -27,7 +26,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context),
       body: cartController.products.length == 0 &&
-              ecomCartController.products.length == 0
+          cartController.productsx.length == 0
           ? const Center(child: Text("No Items"))
           : SingleChildScrollView(
               child: Column(
@@ -56,7 +55,7 @@ class CartScreen extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 ),
-                ecomCartController.products.length> 0?
+                cartController.productsx.length> 0?
                 Body2()
                     :Container(),
               ],
@@ -66,7 +65,7 @@ class CartScreen extends StatelessWidget {
           elevation: kLess,
           color: kWhiteColor,
           child: cartController.products.length == 0 &&
-              ecomCartController.products.length == 0 ?
+              cartController.productsx.length == 0 ?
           Row(
             // crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -174,7 +173,7 @@ class CartScreen extends StatelessWidget {
               ),
               const SizedBox(width: 20),
               if (cartController.products.length > 0 &&
-                  ecomCartController.products.length > 0)
+                  cartController.productsx.length > 0)
                 Obx(
                       () => Expanded(
                     child: FlatButton(
@@ -182,21 +181,21 @@ class CartScreen extends StatelessWidget {
                         color: kPrimaryColor,
                         textColor: kWhiteColor,
                         child: Text(
-                            "CHECKOUT ( UGX ${f.format(cartController.total + ecomCartController.total ?? 0)})",
+                            "CHECKOUT ( UGX ${f.format(cartController.total + cartController.totalx ?? 0)})",
                             style: const TextStyle(
                                 fontSize: 16.0,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => () {
-
+                        onPressed: ()  {
+                          print('clicked');
                           Get.to(()=>PaymentOptions(
-                                amount: (cartController.total + ecomCartController.total).toString(),
+                            amount: (cartController.total + cartController.totalx).toString(),
                           ));
                         }),
                   ),
                 )
               else if (cartController.products.length == 0 &&
-                  ecomCartController.products.length > 0)
+                  cartController.productsx.length > 0)
                 Obx(
                       () => Expanded(
                     child: FlatButton(
@@ -204,20 +203,20 @@ class CartScreen extends StatelessWidget {
                         color: kPrimaryColor,
                         textColor: kWhiteColor,
                         child: Text(
-                            "CHECKOUT ( UGX ${f.format(ecomCartController.total ?? 0)})",
+                            "CHECKOUT ( UGX ${f.format(cartController.totalx ?? 0)})",
                             style: const TextStyle(
                                 fontSize: 16.0,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => () {
-
+                        onPressed: (){
+                          print('clicked');
                           Get.to(()=>PaymentOptions(
-                                amount: ecomCartController.total.toString(),
+                                amount: cartController.totalx.toString(),
                               ));
                         }),
                   ),
                 )
-              else if (ecomCartController.products.length == 0 &&
+              else if (cartController.productsx.length == 0 &&
                     cartController.products.length > 0)
                   Obx(
                         () => Expanded(
@@ -264,7 +263,7 @@ class CartScreen extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             Text(
-              "${(cartController.products.length+ecomCartController.products.length)??0} items",
+              "${(cartController.products.length+cartController.productsx.length)??0} items",
               style: Theme.of(context).textTheme.caption,
             ),
           ],

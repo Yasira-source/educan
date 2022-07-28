@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../controller/cart_controller.dart';
-import '../../../controller/ecom_cart_controller.dart';
 import '../../../utils/constants.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +17,7 @@ class IconBtnWithCounter extends StatelessWidget {
   final GestureTapCallback? press;
 
   final CartController controller = Get.put(CartController());
-  final EcomCartController eController = Get.put(EcomCartController());
+  // final EcomCartController eController = Get.put(EcomCartController());
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
@@ -38,7 +37,7 @@ class IconBtnWithCounter extends StatelessWidget {
               ),
               child: SvgPicture.asset(svgSrc!,color: const Color(0xFF1A8F00),),
             ),
-            if (controller.products.length+eController.products.length != 0)
+            if (controller.products.length+controller.productsx.length != 0)
               Positioned(
                 top: -3,
                 right: 0,
@@ -55,7 +54,7 @@ class IconBtnWithCounter extends StatelessWidget {
                   child: Center(
                     child:
                     Text(
-                        "${controller.products.length+eController.products.length}",
+                        "${controller.products.length+controller.productsx.length}",
                         style: const TextStyle(
                           fontSize: 15,
                           height: 1,

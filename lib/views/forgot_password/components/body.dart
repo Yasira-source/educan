@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
                 ),
               ),
               Text(
-                "Please enter your email and we will send \nyou a link to return to your account",
+                "Please enter your email and we will send \nyou an email with a temporary password to return to your account",
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),

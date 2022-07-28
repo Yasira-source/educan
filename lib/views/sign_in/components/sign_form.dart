@@ -14,6 +14,7 @@ import '../../../controller/sign_in_controller.dart';
 import '../../../utils/components/custom_surfix_icon.dart';
 import '../../../utils/components/default_button.dart';
 import '../../../utils/components/form_error.dart';
+import '../../../utils/components/no_account_text.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/keyboard.dart';
 import '../../forgot_password/forgot_password_screen.dart';
@@ -113,6 +114,7 @@ class _SignFormState extends State<SignForm> {
               )
             ],
           ),
+
           FormError(errors: errors),
           SizedBox(height: 20),
           DefaultButton(

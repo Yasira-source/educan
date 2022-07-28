@@ -7,7 +7,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:http/http.dart' as http;
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../models/library_categories.dart';
 import '../cart/cart_screen.dart';
 import '../library_contents_page/library_conents_page.dart';
@@ -32,7 +31,7 @@ Future<List<LibraryCategoriesData>> fetchCategories() async {
       'https://educanug.com/educan_new/educan/api/library/get_library_categories_2.php'));
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
-  print(jsonResponse);
+  // print(jsonResponse);
   return jsonResponse.map((data) => LibraryCategoriesData.fromJson(data)).toList();
   // } else {
   //   throw Exception('Unexpected error occured!');
@@ -41,7 +40,7 @@ Future<List<LibraryCategoriesData>> fetchCategories() async {
 // final orientation = MediaQuery.of(context).orientation;
 class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +69,7 @@ class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
                       top: 0,
                       right: 6,
 
-                      child:cartController.products.length+ecomCartController.products.length==0?
+                      child:cartController.products.length+cartController.productsx.length==0?
                       Container()
                           :
                       Container(
@@ -81,7 +80,7 @@ class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
                             shape: BoxShape.circle),
                         child:
                         Text(
-                          '${cartController.products.length+ecomCartController.products.length}',
+                          '${cartController.products.length+cartController.productsx.length}',
                           style: const TextStyle(fontSize: 12),
                         ),
 

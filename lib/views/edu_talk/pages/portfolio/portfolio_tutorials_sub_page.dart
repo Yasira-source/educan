@@ -43,7 +43,7 @@ class EduTalkTutorialsSubPage extends StatelessWidget {
           floating: false,
           flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: Text("Edu-Talk\nBe Inspired for Change",
+              title: Text("Educan Talk\nBe Inspired for Change",
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: TextStyle(

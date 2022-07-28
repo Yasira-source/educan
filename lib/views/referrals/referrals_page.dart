@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../models/consultants_model.dart';
 import '../../models/library_topic_items.dart';
 import '../../models/referrals_model.dart';
@@ -44,7 +43,7 @@ Future<List<ReferralsData>> fetchReferrals(String cl) async {
 
 class _ReferralsPageState extends State<ReferralsPage> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
 
   String uid = '';
 
@@ -89,7 +88,7 @@ class _ReferralsPageState extends State<ReferralsPage> {
                       top: 0,
                       right: 6,
 
-                      child:cartController.products.length+ecomCartController.products.length==0?
+                      child:cartController.products.length+cartController.productsx.length==0?
                       Container()
                           :
                       Container(
@@ -100,7 +99,7 @@ class _ReferralsPageState extends State<ReferralsPage> {
                             shape: BoxShape.circle),
                         child:
                         Text(
-                          '${cartController.products.length+ecomCartController.products.length}',
+                          '${cartController.products.length+cartController.productsx.length}',
                           style: const TextStyle(fontSize: 12),
                         ),
 

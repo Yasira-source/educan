@@ -7,6 +7,7 @@ import 'package:educanapp/utils/widgets/stickyLabel.dart';
 import 'package:educanapp/views/notification/components/defaultAppBar.dart';
 import 'package:educanapp/views/notification/components/defaultBackButton.dart';
 import 'package:educanapp/views/payment_options/payment_options_2.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:http/http.dart' as http;
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 import '../payment_options/payment_options.dart';
 class SubscriptionSecond extends StatefulWidget {
@@ -30,7 +30,7 @@ class SubscriptionSecond extends StatefulWidget {
 
 class _SubscriptionSecondState extends State<SubscriptionSecond> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   var f = NumberFormat("###,###", "en_US");
 
   Future<List<SubData>> fetchPlans(String tag) async {
@@ -43,6 +43,20 @@ class _SubscriptionSecondState extends State<SubscriptionSecond> {
     // } else {
     //   throw Exception('Unexpected error occured!');
     // }
+  }
+  void secureScreen() async {
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.clearFlags(
+        FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    secureScreen();
+    // _loadCounterx();
+    // futureAlbum = fetchSubStatus(uid);
   }
   @override
   Widget build(BuildContext context) {
@@ -67,7 +81,7 @@ class _SubscriptionSecondState extends State<SubscriptionSecond> {
                       top: 0,
                       right: 6,
 
-                      child:cartController.products.length+ecomCartController.products.length==0?
+                      child:cartController.products.length+cartController.productsx.length==0?
                       Container()
                           :
                       Container(
@@ -78,7 +92,7 @@ class _SubscriptionSecondState extends State<SubscriptionSecond> {
                             shape: BoxShape.circle),
                         child:
                         Text(
-                          '${cartController.products.length+ecomCartController.products.length}',
+                          '${cartController.products.length+cartController.productsx.length}',
                           style: const TextStyle(fontSize: 12),
                         ),
 

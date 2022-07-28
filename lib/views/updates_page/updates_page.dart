@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../models/scholarships_model.dart';
 import '../cart/cart_screen.dart';
 import '../topics_page/topics_page.dart';
@@ -39,7 +38,7 @@ Future<List<ScholarshipData>> fetchScholarships() async {
 
 class _UpdatesPageState extends State<UpdatesPage> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +64,7 @@ class _UpdatesPageState extends State<UpdatesPage> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                        ecomCartController.products.length ==
+                        cartController.productsx.length ==
                         0
                         ? Container()
                         : Container(
@@ -73,7 +72,7 @@ class _UpdatesPageState extends State<UpdatesPage> {
                       decoration: const BoxDecoration(
                           color: Colors.red, shape: BoxShape.circle),
                       child: Text(
-                        '${cartController.products.length + ecomCartController.products.length}',
+                        '${cartController.products.length + cartController.productsx.length}',
                         style: const TextStyle(fontSize: 12),
                       ),
                     )),

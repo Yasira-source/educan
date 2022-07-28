@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../controller/cart_controller.dart';
-import '../../../controller/ecom_cart_controller.dart';
 import '../../../size_config.dart';
 import 'cart_card.dart';
 import 'package:get/get.dart';
@@ -17,7 +16,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
 
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
 
   String uid = '';
 

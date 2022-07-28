@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:educanapp/controller/ecom_cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +34,7 @@ BookshopData data;
   var f = NumberFormat("###,###", "en_US");
 
  final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   // final int index;
   Future<List<BookshopData>> fetchRelated(String tag, String sort) async {
     final response = await http.get(Uri.parse(
@@ -72,7 +71,7 @@ BookshopData data;
                   top: 0,
                   right: 6,
 
-                  child:cartController.products.length+ecomCartController.products.length==0?
+                  child:cartController.products.length+cartController.productsx.length==0?
                       Container()
                   :
                   Container(
@@ -83,7 +82,7 @@ BookshopData data;
                     shape: BoxShape.circle),
                     child:
                        Text(
-                        '${cartController.products.length+ecomCartController.products.length}',
+                        '${cartController.products.length+cartController.productsx.length}',
                         style: TextStyle(fontSize: 12),
                       ),
 
@@ -310,7 +309,7 @@ BookshopData data;
               onTap: (){
                 final Uri launchUri = Uri(
                   scheme: 'tel',
-                  path: '+256757438443',
+                  path: '+256789684676',
                 );
                 launchUrl(launchUri);
 

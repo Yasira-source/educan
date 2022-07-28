@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../models/consultants_model.dart';
 import '../../models/library_topic_items.dart';
 import '../cart/cart_screen.dart';
@@ -44,7 +43,7 @@ Future<List<ConsultantsData>> fetchConsultants(String cl,String sub) async {
 
 class _ConsultantsPageState extends State<ConsultantsPage> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +72,7 @@ class _ConsultantsPageState extends State<ConsultantsPage> {
                       top: 0,
                       right: 6,
 
-                      child:cartController.products.length+ecomCartController.products.length==0?
+                      child:cartController.products.length+cartController.productsx.length==0?
                       Container()
                           :
                       Container(
@@ -84,7 +83,7 @@ class _ConsultantsPageState extends State<ConsultantsPage> {
                             shape: BoxShape.circle),
                         child:
                         Text(
-                          '${cartController.products.length+ecomCartController.products.length}',
+                          '${cartController.products.length+cartController.productsx.length}',
                           style: const TextStyle(fontSize: 12),
                         ),
 
@@ -170,7 +169,7 @@ class _ConsultantsPageState extends State<ConsultantsPage> {
                                         onPressed: () {
                                           final Uri launchUri = Uri(
                                             scheme: 'tel',
-                                            path: '+256${data[index].phone!}',
+                                            path: '${data[index].phone!}',
                                           );
                                           launchUrl(launchUri);
                                         },

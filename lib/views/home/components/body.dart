@@ -83,37 +83,33 @@ class _BodyState extends State<Body> {
             const SizedBox(height: 20),
 
             // MySlider(),
-
+            PopularProducts("PRINTING & PUBLICATIONS", 8, Color(0xff0d7478),"","ASC"),
+            const SizedBox(height: 30),
             PopularProducts("STATIONERY & OFFICE", 1, const Color(0xff221d75),"","ASC"),
             const SizedBox(height: 30),
-
+            PopularProducts("LABORATORY EQUIPMENT", 7, Color(0xff0d780f),"","ASC"),
+            const SizedBox(height: 30),
             PopularProducts("BACK TO SCHOOL ITEMS", 2, const Color(0xff790eeb),"","ASC"),
-            const SizedBox(height: 30),
-            // SpecialOffers(),
-
-            PopularProducts("SCHOOL TECH GADGETS", 3, Color(0xffeb0ed5),"","ASC"),
-            const SizedBox(height: 30),
-
-            PopularProducts("TOYS, GAMES, & MORE", 4, Color(0xffeb490e),"","ASC"),
-            const SizedBox(height: 30),
-            // SpecialOffers(),
-
-            PopularProducts("GIFTS, AWARDS & BRANDING", 5, Color(0xff141414),"","ASC"),
-            const SizedBox(height: 30),
-
-            PopularProducts("SCHOOL UNIFORMS & MORE", 6, Color(0xfff5bb0c),"","ASC"),
-            const SizedBox(height: 30),
-            // SpecialOffers(),
-
-            PopularProducts("LAB EQUIPMENTS", 7, Color(0xff0d780f),"","ASC"),
-            const SizedBox(height: 30),
-
-            PopularProducts("PRINTING & PUBLISHING", 8, Color(0xff0d7478),"","ASC"),
             const SizedBox(height: 30),
             // SpecialOffers(),
 
             PopularProducts("CO-CURRICULAR ITEMS", 9, Color(0xff4b0d78),"","ASC"),
             const SizedBox(height: 30),
+            PopularProducts("SCHOOL TECH GADGETS", 3, Color(0xffeb0ed5),"","ASC"),
+            const SizedBox(height: 30),
+            PopularProducts("TOYS, GAMES, & MORE", 4, Color(0xffeb490e),"","ASC"),
+            const SizedBox(height: 30),
+            // PopularProducts("SCHOOL UNIFORMS & MORE", 6, Color(0xfff5bb0c),"","ASC"),
+            // const SizedBox(height: 30),
+
+            // SpecialOffers(),
+
+            PopularProducts("GIFTS, AWARDS & BRANDING", 5, Color(0xff141414),"","ASC"),
+            const SizedBox(height: 30),
+
+            // SpecialOffers(),
+            // SpecialOffers(),
+
 
             PopularProducts("BEST I.T SERVICES", 10, Color(0xff780d51),"","ASC"),
             const SizedBox(height: 30),

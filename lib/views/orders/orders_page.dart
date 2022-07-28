@@ -8,7 +8,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 
 class Buying extends StatefulWidget {
@@ -20,7 +19,7 @@ class Buying extends StatefulWidget {
 
 class _BuyingState extends State<Buying> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   String uid = '';
 
   @override
@@ -80,7 +79,7 @@ class _BuyingState extends State<Buying> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                                ecomCartController.products.length ==
+                        cartController.productsx.length ==
                             0
                         ? Container()
                         : Container(
@@ -88,7 +87,7 @@ class _BuyingState extends State<Buying> {
                             decoration: const BoxDecoration(
                                 color: Colors.red, shape: BoxShape.circle),
                             child: Text(
-                              '${cartController.products.length + ecomCartController.products.length}',
+                              '${cartController.products.length + cartController.productsx.length}',
                               style: const TextStyle(fontSize: 12),
                             ),
                           )),

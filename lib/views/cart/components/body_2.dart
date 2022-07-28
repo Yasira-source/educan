@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../controller/cart_controller.dart';
-import '../../../controller/ecom_cart_controller.dart';
 import '../../../size_config.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +15,7 @@ class Body2 extends StatefulWidget {
 
 class _Body2State extends State<Body2> {
 
-  final ecomCartController = Get.put(EcomCartController());
+  final ecomCartController = Get.put(CartController());
   String uid = '';
 
   @override
@@ -42,12 +41,12 @@ class _Body2State extends State<Body2> {
           child:
           ListView.builder(
             shrinkWrap: true,
-                itemCount: ecomCartController.products.length,
+                itemCount: ecomCartController.productsx.length,
                 itemBuilder: (BuildContext context, int index) {
                   return CartCard2(
                     controller: ecomCartController,
-                    cart: ecomCartController.products.keys.toList()[index],
-                    quantity: ecomCartController.products.values.toList()[index],
+                    cart: ecomCartController.productsx.keys.toList()[index],
+                    quantity: ecomCartController.productsx.values.toList()[index],
                     index: index,
                     uid: uid,
                   );

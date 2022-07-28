@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 import 'components/body.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String uid = '';
   String email = '';
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   @override
   void initState() {
     super.initState();
@@ -76,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                                ecomCartController.products.length ==
+                        cartController.productsx.length ==
                             0
                         ? Container()
                         : Container(
@@ -84,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             decoration: const BoxDecoration(
                                 color: Colors.red, shape: BoxShape.circle),
                             child: Text(
-                              '${cartController.products.length + ecomCartController.products.length}',
+                              '${cartController.products.length + cartController.productsx.length}',
                               style: const TextStyle(fontSize: 12),
                             ),
                           )),

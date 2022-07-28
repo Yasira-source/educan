@@ -12,7 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../controller/flutterwave_payments_controller.dart';
 import '../../models/all_products_model.dart';
 import '../../models/bookshop_model.dart';
@@ -37,7 +36,7 @@ class CashOnDeliveryState extends State<CashOnDelivery> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final controller = FlutterWavePaymentsController();
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   String email = '';
   String uid = '';
   @override

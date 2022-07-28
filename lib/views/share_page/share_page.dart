@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 
 class SharePage extends StatefulWidget {
@@ -15,7 +14,7 @@ class SharePage extends StatefulWidget {
 
 class _SharePageState extends State<SharePage> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +40,7 @@ class _SharePageState extends State<SharePage> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                                ecomCartController.products.length ==
+                        cartController.productsx.length ==
                             0
                         ? Container()
                         : Container(
@@ -49,7 +48,7 @@ class _SharePageState extends State<SharePage> {
                             decoration: const BoxDecoration(
                                 color: Colors.red, shape: BoxShape.circle),
                             child: Text(
-                              '${cartController.products.length + ecomCartController.products.length}',
+                              '${cartController.products.length + cartController.productsx.length}',
                               style: const TextStyle(fontSize: 12),
                             ),
                           )),

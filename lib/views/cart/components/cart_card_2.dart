@@ -1,4 +1,4 @@
-import 'package:educanapp/controller/ecom_cart_controller.dart';
+
 import 'package:educanapp/models/all_products_model.dart';
 import 'package:educanapp/models/bookshop_model.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class CartCard2 extends StatefulWidget {
     required this.uid
   }) : super(key: key);
   final ProductsData cart;
-  final EcomCartController controller;
+  final CartController controller;
   final int quantity;
   final int index;
   final String uid;
@@ -37,7 +37,7 @@ class _CartCard2State extends State<CartCard2> {
 
     var result= await controllerx.uploadCartItem2(widget.uid,widget.cart.pid.toString(),widget.quantity.toString()
         , 1);
-    print(result);
+    // print(result);
     return result;
   }
 
@@ -149,7 +149,7 @@ class _CartCard2State extends State<CartCard2> {
                 children: [
 
                   TextButton.icon(onPressed: (){
-                    widget.controller.removeProduct2(widget.cart);
+                    widget.controller.removeProduct2x(widget.cart);
                   },
                       icon: const Icon(
                         Icons.delete_outline_outlined,
@@ -161,7 +161,7 @@ class _CartCard2State extends State<CartCard2> {
 
                   IconButton(
                       onPressed: () {
-                        widget.controller.removeProduct(widget.cart);
+                        widget.controller.removeProductx(widget.cart);
                       },
                       icon: const Icon(
                         Icons.remove_circle,
@@ -185,7 +185,7 @@ class _CartCard2State extends State<CartCard2> {
 
                   IconButton(
                       onPressed: () {
-                        widget.controller.addProduct(widget.cart);
+                        widget.controller.addProductx(widget.cart);
                       },
                       icon: const Icon(
                         Icons.add_circle,

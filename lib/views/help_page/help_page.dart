@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +16,7 @@ class HelpPage extends StatefulWidget {
 
 class _HelpPageState extends State<HelpPage> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +41,7 @@ class _HelpPageState extends State<HelpPage> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                                ecomCartController.products.length ==
+                        cartController.productsx.length ==
                             0
                         ? Container()
                         : Container(
@@ -50,7 +49,7 @@ class _HelpPageState extends State<HelpPage> {
                             decoration: const BoxDecoration(
                                 color: Colors.red, shape: BoxShape.circle),
                             child: Text(
-                              '${cartController.products.length + ecomCartController.products.length}',
+                              '${cartController.products.length + cartController.productsx.length}',
                               style: const TextStyle(fontSize: 12),
                             ),
                           )),

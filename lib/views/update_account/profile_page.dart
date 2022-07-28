@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../cart/cart_screen.dart';
 import 'edit_description.dart';
 import 'edit_email.dart';
@@ -25,7 +24,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   String _pname = '';
   String upname = '';
   String phone ='';
@@ -75,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                        ecomCartController.products.length ==
+                        cartController.productsx.length ==
                         0
                         ? Container()
                         : Container(
@@ -83,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: const BoxDecoration(
                           color: Colors.red, shape: BoxShape.circle),
                       child: Text(
-                        '${cartController.products.length + ecomCartController.products.length}',
+                        '${cartController.products.length + cartController.productsx.length}',
                         style: const TextStyle(fontSize: 12),
                       ),
                     )),
@@ -104,9 +103,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 imagePath: user.image,
                 onPressed: () {},
               )),
-          buildUserInfoDisplay(_pname, 'Name', EditNameFormPage()),
-          buildUserInfoDisplay(phone, 'Phone', EditPhoneFormPage()),
-          buildUserInfoDisplay(email, 'Email', EditEmailFormPage()),
+          // buildUserInfoDisplay(_pname, 'Name', EditNameFormPage()),
+          // buildUserInfoDisplay(phone, 'Phone', EditPhoneFormPage()),
+          // buildUserInfoDisplay(email, 'Email', EditEmailFormPage()),
+
+          buildUserInfoDisplay(user.name, 'Name', EditNameFormPage()),
+          buildUserInfoDisplay(user.phone, 'Phone', EditPhoneFormPage()),
+          buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
           Expanded(
             child: buildAbout(user),
             flex: 4,

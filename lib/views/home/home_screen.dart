@@ -2,6 +2,7 @@ import 'package:educanapp/views/help_page/help_page.dart';
 import 'package:educanapp/views/share_page/share_page.dart';
 import 'package:educanapp/views/updates_page/updates_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:provider/provider.dart';
 
 import '../../helper/internet_connectivity/connectivity_provider.dart';
@@ -19,9 +20,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  void secureScreen() async {
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.clearFlags(
+        FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
+
+
   @override
   void initState() {
     super.initState();
+    secureScreen();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
   // static String routeName = "/home";

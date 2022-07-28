@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:educanapp/views/features/presentation/components/hero_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:video_player/video_player.dart';
 
 class EduTalkDetailPage extends StatefulWidget {
@@ -27,23 +28,34 @@ class EduTalkDetailPage extends StatefulWidget {
 class _EduTalkDetailPageState
     extends State<EduTalkDetailPage> {
   late ChewieController _chewieController;
-
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+  void secureScreen() async {
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.addFlags(
+        FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
   @override
   void initState() {
+
+    _controller  =VideoPlayerController.network(widget.videoUrl);
     super.initState();
     _chewieController = ChewieController(
       //* VideoPlayer Network constructor for playing video from internet
-      videoPlayerController: VideoPlayerController.network(widget.videoUrl),
+      videoPlayerController: _controller,
+      // Initialize the controller and store the Future for later use.
 
       //* VideoPlayer Asset constructor for playing video from application's asset folder
       // videoPlayerController: VideoPlayerController.asset('assets/videos/himdeveIntro.mp4'),
-
+      // startAt: Duration(seconds: timeWatched),
       //* VideoPlayer File constructor for playing video from phone storage
       // videoPlayerController: VideoPlayerController.file(File(widget.videoUrl)),
       aspectRatio: 16 / 9,
       autoInitialize: true,
       autoPlay: true,
       looping: true,
+      // placeholder:const Center(child: CircularProgressIndicator(),),
       errorBuilder: (context, errorMessage) {
         return const Center(
           child: Padding(
@@ -55,8 +67,19 @@ class _EduTalkDetailPageState
           ),
         );
       },
+      showControls: true,
+      allowFullScreen: true,
+      fullScreenByDefault: false,
+      customControls: const CupertinoControls(
+        backgroundColor: Color(0xFF1A8F00),
+        iconColor: Colors.white,
+      ),
     );
+
+    _initializeVideoPlayerFuture = _controller.initialize();
+    secureScreen();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +96,24 @@ class _EduTalkDetailPageState
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          _buildHeroWidget(context),
+          FutureBuilder(
+            future: _initializeVideoPlayerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                // If the VideoPlayerController has finished initialization, use
+                // the data it provides to limit the aspect ratio of the video.
+                return _buildHeroWidget(context);
+              } else {
+                // If the VideoPlayerController is still initializing, show a
+                // loading spinner.
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Center(child: const CircularProgressIndicator()),
+                );
+              }
+            },
+          ),
+          // _buildHeroWidget(context),
           _buildTitle(),
           _buildDesc(),
         ],

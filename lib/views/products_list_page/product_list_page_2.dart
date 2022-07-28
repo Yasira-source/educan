@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../models/all_products_model.dart';
 import '../cart/cart_screen.dart';
 import '../home/components/search_field.dart';
@@ -28,7 +27,7 @@ class ProductsListPage2 extends StatefulWidget {
 
 class _ProductsListPage2State extends State<ProductsListPage2> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   Future<List<BookshopData>> fetchData(String tag, String sort) async {
     final response = await http.get(Uri.parse(
         'https://educanug.com/educan_new/educan/api/library/get_libarary_books.php?type=$tag&sortOrder=$sort'));
@@ -67,7 +66,7 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                                ecomCartController.products.length ==
+                        cartController.productsx.length ==
                             0
                         ? Container()
                         : Container(
@@ -75,7 +74,7 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
                             decoration: const BoxDecoration(
                                 color: Colors.red, shape: BoxShape.circle),
                             child: Text(
-                              '${cartController.products.length + ecomCartController.products.length}',
+                              '${cartController.products.length + cartController.productsx.length}',
                               style: const TextStyle(fontSize: 12),
                             ),
                           )),

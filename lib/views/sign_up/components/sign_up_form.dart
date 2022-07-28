@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:educanapp/views/success/reg_error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -98,13 +99,14 @@ class _SignUpFormState extends State<SignUpForm> {
 
                   result = await controller.postData(
                       names!, email!, phoneNum!, "F", "", password!);
-                  print(result);
+                  // print(result);
                   var got = json.decode(result);
                   // print(got['message']);
-                  if (got['success']) {
+                  if (got['message']=='Yes') {
                     Get.off(() => LoginSuccessScreen());
                   } else {
-                    _showMyDialog();
+                    // _showMyDialog(got['message']);
+                    Get.to(()=>RegErrorMessage(got['message']));
                   }
                   // if all are valid then go to success screen
 
@@ -276,7 +278,7 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog(String mess) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -285,9 +287,9 @@ class _SignUpFormState extends State<SignUpForm> {
           title: const Text('Registration Failed!'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
-                Text('Kindly try again '),
-                Text(' to Continue '),
+              children:  <Widget>[
+                Text(mess),
+                // Text(' to Continue '),
               ],
             ),
           ),

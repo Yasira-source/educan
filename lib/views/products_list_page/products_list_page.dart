@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import '../../controller/cart_controller.dart';
-import '../../controller/ecom_cart_controller.dart';
 import '../../models/all_products_model.dart';
 import '../cart/cart_screen.dart';
 import '../product_details_page/ecom_product_details_page.dart';
@@ -25,7 +24,7 @@ class ProductsListPage extends StatefulWidget {
 
 class _ProductsListPageState extends State<ProductsListPage> {
   final cartController = Get.put(CartController());
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   Future<List<ProductsData>> fetchEcomData(String tag, String sort) async {
     final response = await http.get(Uri.parse(
         'https://educanug.com/educan_new/educan/api/products/get_category_products.php?tag=$tag&sort=$sort'));
@@ -64,7 +63,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                        ecomCartController.products.length ==
+                        cartController.productsx.length ==
                         0
                         ? Container()
                         : Container(
@@ -72,7 +71,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                       decoration: const BoxDecoration(
                           color: Colors.red, shape: BoxShape.circle),
                       child: Text(
-                        '${cartController.products.length + ecomCartController.products.length}',
+                        '${cartController.products.length + cartController.productsx.length}',
                         style: const TextStyle(fontSize: 12),
                       ),
                     )),

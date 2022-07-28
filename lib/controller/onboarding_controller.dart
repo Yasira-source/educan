@@ -21,7 +21,7 @@ class OnboardingController extends GetxController {
   List<OnboardingInfo> onboardingPages = [
     OnboardingInfo('assets/images/readingbook.png', 'Welcome to Educan!',
         'Welcome to Educan, Let’s learn!\nValues Beyond School'),
-    OnboardingInfo('assets/images/splash_2.png', "Our Learning Services",
+    OnboardingInfo('assets/images/manthumbs.png', "Our Learning Services",
         'Improved access to quality education for all \naround Uganda, East Africa & world-wide'),
     OnboardingInfo('assets/images/manthumbs.png', 'Shop Materials & Services',
         'Every child has the right to learn. \nJust stay with us!')

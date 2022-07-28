@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:educanapp/controller/ecom_cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,7 +33,7 @@ class EcomProductDetailsView extends StatelessWidget {
   bool _enabled = true;
   var f = NumberFormat("###,###", "en_US");
 
-  final ecomCartController = Get.put(EcomCartController());
+  // final ecomCartController = Get.put(EcomCartController());
   final cartController = Get.put(CartController());
   // final int index;
 
@@ -71,7 +70,7 @@ class EcomProductDetailsView extends StatelessWidget {
                       top: 0,
                       right: 6,
 
-                      child:cartController.products.length+ecomCartController.products.length==0?
+                      child:cartController.products.length+cartController.productsx.length==0?
                       Container()
                           :
                       Container(
@@ -82,7 +81,7 @@ class EcomProductDetailsView extends StatelessWidget {
                             shape: BoxShape.circle),
                         child:
                         Text(
-                          '${cartController.products.length+ecomCartController.products.length}',
+                          '${cartController.products.length+cartController.productsx.length}',
                           style: TextStyle(fontSize: 12),
                         ),
 
@@ -369,7 +368,7 @@ class EcomProductDetailsView extends StatelessWidget {
             Expanded(
               child: InkWell(
                 onTap: () {
-                  ecomCartController.addProduct(data);
+                  cartController.addProductx(data);
 
                 },
                 child: Container(
