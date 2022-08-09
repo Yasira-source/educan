@@ -71,13 +71,13 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
 
         title: Text(widget.title),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Ionicons.search_outline,
-              color: Colors.white,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Ionicons.search_outline,
+          //     color: Colors.white,
+          //   ),
+          // ),
           Stack(
             children: [
               IconButton(onPressed: (){
@@ -168,7 +168,7 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
                 children: [
                   // SizedBox(width: 0.01,),
                   Text(
-                    "Ordinary Level - Old Curriculum",
+                    "Ordinary Level ",
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.black,

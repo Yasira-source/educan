@@ -53,13 +53,13 @@ class _SubjectsPageState extends State<SubjectsPage> {
 
         title: Text(widget.title),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Ionicons.search_outline,
-              color: Colors.white,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Ionicons.search_outline,
+          //     color: Colors.white,
+          //   ),
+          // ),
           Stack(
             children: [
               IconButton(onPressed: (){

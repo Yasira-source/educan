@@ -35,15 +35,15 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                       width: 350,
-                      child: const Text(
-                        "What type of passenger\nare you?",
+                      child: Text(
+                        "Briefly Describe yourself?",
                         style:
                             TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       )),
                   Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: SizedBox(
                           height: 250,
                           width: 350,

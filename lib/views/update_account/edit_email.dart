@@ -2,6 +2,7 @@ import 'package:educanapp/views/update_account/user/user_data.dart';
 import 'package:educanapp/views/update_account/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // This class handles the Page to edit the Email Section of the User Profile.
 class EditEmailFormPage extends StatefulWidget {
@@ -76,12 +77,15 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                                   primary: Colors.white,
                                   backgroundColor: const Color(0xFF1A8F00)
                               ),
-                              onPressed: () {
+                              onPressed: () async{
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (_formKey.currentState!.validate() &&
                                     EmailValidator.validate(
                                         emailController.text)) {
+                                  SharedPreferences pref = await SharedPreferences.getInstance();
+                                  await pref.setString("email",emailController.text);
                                   updateUserValue(emailController.text);
+
                                   Navigator.pop(context);
                                 }
                               },

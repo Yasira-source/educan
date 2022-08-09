@@ -151,10 +151,10 @@ final alevelCount = [
 ];
 
 final olevelnewCount = [
-  14,
-  15,
-  16,
-  17,
+  25,
+  26,
+  27,
+  28,
 ];
 final olevel = [
   'assets/class_img/s1.png',

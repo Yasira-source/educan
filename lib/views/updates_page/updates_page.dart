@@ -5,6 +5,7 @@ import 'package:educanapp/views/library_categories_page/library_categories_page.
 import 'package:educanapp/views/scholarship_page/scholarship_details_page.dart';
 import 'package:educanapp/views/subscription_page/subscription_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -39,6 +40,20 @@ Future<List<ScholarshipData>> fetchScholarships() async {
 class _UpdatesPageState extends State<UpdatesPage> {
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
+
+  void secureScreen() async {
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.clearFlags(
+        FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    secureScreen();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

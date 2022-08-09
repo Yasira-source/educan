@@ -112,7 +112,7 @@ class TimePreferences2WidgetState extends State<TimePreferences2Widget> {
                     if( canLaunch(url) != null){
                       launch(url);
                       result1 = await controller.subscribePlan(uid, widget.amount, widget.planId, rcode, "Success");
-                      Get.to(()=>Success(sub: "Your Payment has been made Successfully!",));
+                      // Get.to(()=>Success(sub: "Your Payment has been made Successfully!",));
                     }
                     else {
                       throw 'Could not launch $url';

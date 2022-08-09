@@ -88,13 +88,13 @@ class _LibraryContentsPageState extends State<LibraryContentsPage> {
         // ),
         title: Text(widget.title),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Ionicons.search_outline,
-              color: Colors.white,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Ionicons.search_outline,
+          //     color: Colors.white,
+          //   ),
+          // ),
           IconButton(
             onPressed: () {},
             icon: const Icon(

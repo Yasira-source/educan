@@ -78,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         0
                         ? Container()
                         : Container(
-                      padding: EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(4),
                       decoration: const BoxDecoration(
                           color: Colors.red, shape: BoxShape.circle),
                       child: Text(
@@ -103,16 +103,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 imagePath: user.image,
                 onPressed: () {},
               )),
-          // buildUserInfoDisplay(_pname, 'Name', EditNameFormPage()),
-          // buildUserInfoDisplay(phone, 'Phone', EditPhoneFormPage()),
-          // buildUserInfoDisplay(email, 'Email', EditEmailFormPage()),
+          buildUserInfoDisplay(_pname, 'Name', const EditNameFormPage()),
+          buildUserInfoDisplay(phone, 'Phone', const EditPhoneFormPage()),
+          buildUserInfoDisplay(email, 'Email', const EditEmailFormPage()),
 
-          buildUserInfoDisplay(user.name, 'Name', EditNameFormPage()),
-          buildUserInfoDisplay(user.phone, 'Phone', EditPhoneFormPage()),
-          buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
+          // buildUserInfoDisplay(user.name, 'Name', const EditNameFormPage()),
+          // buildUserInfoDisplay(user.phone, 'Phone', const EditPhoneFormPage()),
+          // buildUserInfoDisplay(user.email, 'Email', const EditEmailFormPage()),
           Expanded(
-            child: buildAbout(user),
             flex: 4,
+            child: buildAbout(user),
           )
         ],
       ),

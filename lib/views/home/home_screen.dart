@@ -26,8 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
         FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
     await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_FULLSCREEN);
   }
-
-
   @override
   void initState() {
     super.initState();

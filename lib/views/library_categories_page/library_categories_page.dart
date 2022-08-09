@@ -52,13 +52,13 @@ class _LibraryCategoriesPageState extends State<LibraryCategoriesPage> {
         // ),
         title: const Text("Library Categories"),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Ionicons.search_outline,
-              color: Colors.white,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Ionicons.search_outline,
+          //     color: Colors.white,
+          //   ),
+          // ),
           IconButton(
             onPressed: () {},
             icon: const Icon(

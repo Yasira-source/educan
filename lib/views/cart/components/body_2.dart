@@ -35,23 +35,32 @@ class _Body2State extends State<Body2> {
   @override
   Widget build(BuildContext context) {
     return Obx(()=>
-        Padding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 20),
-          child:
-          ListView.builder(
-            shrinkWrap: true,
-                itemCount: ecomCartController.productsx.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return CartCard2(
-                    controller: ecomCartController,
-                    cart: ecomCartController.productsx.keys.toList()[index],
-                    quantity: ecomCartController.productsx.values.toList()[index],
-                    index: index,
-                    uid: uid,
-                  );
-                }),
+        SingleChildScrollView(
+          physics: const ScrollPhysics(),
 
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 20),
+                child:
+                ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                      itemCount: ecomCartController.productsx.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CartCard2(
+                          controller: ecomCartController,
+                          cart: ecomCartController.productsx.keys.toList()[index],
+                          quantity: ecomCartController.productsx.values.toList()[index],
+                          index: index,
+                          uid: uid,
+                        );
+                      }),
+
+              ),
+            ],
+          ),
         )
       // CartCard(cart: demoCarts[index]),
 

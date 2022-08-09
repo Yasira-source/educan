@@ -1,6 +1,7 @@
 import 'package:educanapp/views/update_account/user/user_data.dart';
 import 'package:educanapp/views/update_account/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:string_validator/string_validator.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
@@ -105,14 +106,22 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                                 primary: Colors.white,
                                 backgroundColor: const Color(0xFF1A8F00)
                             ),
-                            onPressed: () {
+                            onPressed: () async{
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate() &&
                                   isAlpha(firstNameController.text +
                                       secondNameController.text)) {
+
+                                SharedPreferences pref = await SharedPreferences.getInstance();
+                                // pref.remove("username");
+                                await pref.setString("username",'${firstNameController.text} ${secondNameController.text}');
+                                await pref.setString("lname",secondNameController.text);
+                                await pref.setString("fname",firstNameController.text);
                                 updateUserValue(firstNameController.text +
                                     " " +
                                     secondNameController.text);
+
+
                                 Navigator.pop(context);
                               }
                             },

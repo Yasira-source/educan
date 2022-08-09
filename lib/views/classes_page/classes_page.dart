@@ -29,7 +29,6 @@ class _ClassesPageState extends State<ClassesPage> {
 String uid ='';
   // late Future<SubsData> futureAlbum;
 
-
   Future<List<SubsData>> fetchSubStatus(String uidd) async {
     final response = await http
         .get(Uri.parse('https://educanug.com/educan_new/educan/api/user/check_subs.php?class=$uidd'));
@@ -72,13 +71,13 @@ String uid ='';
 
 
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Ionicons.search_outline,
-              color: Colors.white,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Ionicons.search_outline,
+          //     color: Colors.white,
+          //   ),
+          // ),
           Stack(
             children: [
               IconButton(onPressed: (){

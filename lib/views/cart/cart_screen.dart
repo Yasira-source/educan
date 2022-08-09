@@ -29,37 +29,38 @@ class CartScreen extends StatelessWidget {
           cartController.productsx.length == 0
           ? const Center(child: Text("No Items"))
           : SingleChildScrollView(
-              child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 5,
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "BOOKSHOP ITEMS",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "BOOKSHOP ITEMS",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                cartController.products.length > 0?
-                Body()
-                :
-                    Container(),
-                const SizedBox(
-                  height: 3,
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("E-COMMERCE ITEMS",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                ),
-                cartController.productsx.length> 0?
-                Body2()
-                    :Container(),
-              ],
-            )),
+              ),
+              cartController.products.length > 0?
+              Body()
+              :
+                  Container(),
+              const SizedBox(
+                height: 3,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("E-COMMERCE ITEMS",
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+              ),
+              cartController.productsx.length> 0?
+              Body2()
+                  :Container(),
+            ],
+              ),
+          ),
       bottomNavigationBar: Obx(()=>
        Material(
           elevation: kLess,
@@ -187,7 +188,7 @@ class CartScreen extends StatelessWidget {
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.bold)),
                         onPressed: ()  {
-                          print('clicked');
+                          // print('clicked');
                           Get.to(()=>PaymentOptions(
                             amount: (cartController.total + cartController.totalx).toString(),
                           ));
@@ -209,7 +210,7 @@ class CartScreen extends StatelessWidget {
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.bold)),
                         onPressed: (){
-                          print('clicked');
+                          // print('clicked');
                           Get.to(()=>PaymentOptions(
                                 amount: cartController.totalx.toString(),
                               ));

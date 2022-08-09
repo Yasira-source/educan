@@ -58,11 +58,11 @@ class _PortfolioTutorialDetailPageState
       looping: true,
         // placeholder:const Center(child: CircularProgressIndicator(),),
       errorBuilder: (context, errorMessage) {
-        return const Center(
+        return  Center(
           child: Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              "Problem Loading Video!\nTry Again",
+                errorMessage,
               style: TextStyle(color: Colors.white),
             ),
           ),

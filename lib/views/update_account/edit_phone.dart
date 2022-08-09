@@ -1,6 +1,7 @@
 import 'package:educanapp/views/update_account/user/user_data.dart';
 import 'package:educanapp/views/update_account/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:string_validator/string_validator.dart';
 
 // This class handles the Page to edit the Phone Section of the User Profile.
@@ -85,11 +86,14 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                                   primary: Colors.white,
                                   backgroundColor: const Color(0xFF1A8F00)
                               ),
-                              onPressed: () {
+                              onPressed: () async{
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (_formKey.currentState!.validate() &&
                                     isNumeric(phoneController.text)) {
+                                  SharedPreferences pref = await SharedPreferences.getInstance();
+                                  await pref.setString("phone",phoneController.text);
                                   updateUserValue(phoneController.text);
+
                                   Navigator.pop(context);
                                 }
                               },

@@ -1,22 +1,23 @@
 import 'package:educanapp/views/referrals/referrals_page.dart';
 import 'package:educanapp/views/updates_page/updates_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../orders/orders_page.dart';
 import '../../sign_in/sign_in_screen.dart';
 import '../../update_account/profile_page.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
-
+import 'package:get/get.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic(),
-          SizedBox(height: 20),
+          const ProfilePic(),
+          const SizedBox(height: 20),
           ProfileMenu(
             text: "Update Account",
             icon: "assets/icons/User Icon.svg",
@@ -60,10 +61,13 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-            press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SignInScreen(
-                  )));
+            press: () async{
+              SharedPreferences preferences = await SharedPreferences.getInstance();
+              await preferences.clear();
+              Get.to(()=>const SignInScreen());
+              // Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) => const SignInScreen(
+              //     )));
             },
           ),
         ],

@@ -177,8 +177,8 @@ void removeError({String? error}) {
 
                         var rcode =getRandomString(15);
                       result = await controller.initiateMMPayment(phoneNum!.substring(1),net,widget.amount,email,rcode);
-                      result1 = await controller.subscribePlan(uid, widget.amount, widget.planid, rcode, "Success");
-                      // print(result1);
+
+                      // print(result);
                       var got = json.decode(result);
                       // print(got['message']);
                       if (got['status']=="success") {
@@ -187,7 +187,8 @@ void removeError({String? error}) {
                         final url =got['meta']['authorization']['redirect'];
                         if( canLaunch(url) != null){
                           launch(url);
-                          Get.to(Success(sub: "Your Payment has been made Successfully!",));
+                          result1 = await controller.subscribePlan(uid, widget.amount, widget.planid, rcode, "Success");
+                          Get.to(()=>Success(sub: "Your Payment has been made Successfully!",));
                         //  get feedback from the webhook and complete the process
                         //   Navigator.of(context).push(
                         //       MaterialPageRoute(

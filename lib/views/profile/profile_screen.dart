@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             Text(" Welcome $upname!",
                 style: const TextStyle(
-                    color: Colors.deepOrangeAccent, fontSize: 16)),
+                    color: Colors.yellow, fontSize: 16)),
             Text(email,
                 style: const TextStyle(color: Colors.white, fontSize: 12)),
             const SizedBox(
@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             0
                         ? Container()
                         : Container(
-                            padding: EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(4),
                             decoration: const BoxDecoration(
                                 color: Colors.red, shape: BoxShape.circle),
                             child: Text(

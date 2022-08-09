@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ScholarshipDetails extends StatefulWidget {
@@ -16,6 +17,21 @@ String title;
 }
 
 class _ScholarshipDetailsState extends State<ScholarshipDetails> {
+
+  void secureScreen() async {
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.clearFlags(
+        FlutterWindowManager.FLAG_KEEP_SCREEN_ON);
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_FULLSCREEN);
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    secureScreen();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

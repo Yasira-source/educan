@@ -50,13 +50,13 @@ class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
 
         title: const Text("Resource Categories"),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Ionicons.search_outline,
-              color: Colors.white,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(
+          //     Ionicons.search_outline,
+          //     color: Colors.white,
+          //   ),
+          // ),
           Stack(
             children: [
               IconButton(onPressed: (){
