@@ -12,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../controller/flutterwave_payments_controller.dart';
 import '../../utils/keyboard.dart';
 import '../success/success.dart';
+import '../success/wait_payment_screen.dart';
 class MobileOperator extends StatefulWidget {
   MobileOperator(this.amount, this.planid,{Key? key}) : super(key: key);
   String amount;
@@ -186,9 +187,11 @@ void removeError({String? error}) {
                       //  redirect
                         final url =got['meta']['authorization']['redirect'];
                         if( canLaunch(url) != null){
+
+                          Get.to(()=>PaymentWait(rcode: rcode,amount: widget.amount,uid: uid,planId: widget.planid,));
                           launch(url);
-                          result1 = await controller.subscribePlan(uid, widget.amount, widget.planid, rcode, "Success");
-                          Get.to(()=>Success(sub: "Your Payment has been made Successfully!",));
+                          // result1 = await controller.subscribePlan(uid, widget.amount, widget.planid, rcode, "Success");
+                          // Get.to(()=>Success(sub: "Your Payment has been made Successfully!",));
                         //  get feedback from the webhook and complete the process
                         //   Navigator.of(context).push(
                         //       MaterialPageRoute(

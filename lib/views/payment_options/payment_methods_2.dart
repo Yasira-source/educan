@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:educanapp/views/payment_options/bank_card_details.dart';
 import 'package:educanapp/views/payment_options/mobile_operator.dart';
+import 'package:educanapp/views/success/wait_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -107,11 +109,13 @@ class TimePreferences2WidgetState extends State<TimePreferences2Widget> {
 
                     var rcode =getRandomString(15);
                     result2 = await controller.CardPayment(widget.amount,email,_pname);
-                    print(result2);
-                    final url =result2;
+                    // print(result2);
+                    final url =json.decode(result2);
                     if( canLaunch(url) != null){
+                      Get.to(()=>PaymentWait(rcode: rcode,amount: widget.amount,uid: uid,planId: widget.planId,));
                       launch(url);
-                      result1 = await controller.subscribePlan(uid, widget.amount, widget.planId, rcode, "Success");
+                      //
+                      // result1 = await controller.subscribePlan(uid, widget.amount, widget.planId, rcode, "Success");
                       // Get.to(()=>Success(sub: "Your Payment has been made Successfully!",));
                     }
                     else {

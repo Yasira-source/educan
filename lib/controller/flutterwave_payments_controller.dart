@@ -230,4 +230,25 @@ class FlutterWavePaymentsController extends GetxController with BaseController {
     // print(response);
     return response;
   }
+
+
+  checkWavePayment() async {
+    // showLoading('Initiating Payment...');
+    var response = await BaseClient()
+        .get('https://educanug.com/educan_new/educan/api',
+        '/user/wave_verify_2.php')
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        DialogHelper.showErroDialog(description: apiError["reason"]);
+
+      } else {
+        handleError(error);
+      }
+    });
+    if (response == null) return;
+    // hideLoading();
+    // print(response);
+    return response;
+  }
 }

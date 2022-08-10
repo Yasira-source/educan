@@ -23,7 +23,7 @@ class OnboardingController extends GetxController {
         'Welcome to Educan, Let’s learn!\nValues Beyond School'),
     OnboardingInfo('assets/images/manthumbs.png', "Our Learning Services",
         'Improved access to quality education for all \naround Uganda, East Africa & world-wide'),
-    OnboardingInfo('assets/images/manthumbs.png', 'Shop Materials & Services',
+    OnboardingInfo('assets/images/splash_1.png', 'Shop Materials & Services',
         'Every child has the right to learn. \nJust stay with us!')
   ];
 }
