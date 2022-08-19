@@ -27,7 +27,7 @@ class UpdatesPage extends StatefulWidget {
 
 Future<List<ScholarshipData>> fetchScholarships() async {
   final response = await http.get(Uri.parse(
-      'https://educanug.com/educan_new/educan/api/library/get_schools.php'));
+      'https://educanug.com/educan_new/educan/api/library/get_awards.php'));
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
   print(jsonResponse);

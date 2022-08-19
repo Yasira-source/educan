@@ -58,7 +58,7 @@ var result1;
               });
 
               // print(got['message']);
-              if (got['message']=='successful') {
+              if (got['message']!='') {
                  result1 = await controller.subscribePlan(widget.uid, widget.amount, widget.planId, widget.rcode, "Success");
                  Get.to(()=>Success(sub: "Your Payment has been made Successfully!",));
               } else {

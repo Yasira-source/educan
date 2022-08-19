@@ -47,7 +47,7 @@ Future<List<LibraryTopicItems>> fetchContents(String cl,String sub,String c) asy
   }
   else{
      response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_others.php?class=$cl&subject=$sub'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_others.php?class=$cl&subject=$sub&c=$c'));
   }
 
   // if (response.statusCode == 200) {
