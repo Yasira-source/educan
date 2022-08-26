@@ -38,6 +38,10 @@ class FlutterWavePaymentsController extends GetxController with BaseController {
   }
 
   initiateCardPayment(String cno) async {
+
+
+
+
     var request = {
       "client": cno,
       // "enckey":'1ac1d3c428bf2361b6e4fd3c'

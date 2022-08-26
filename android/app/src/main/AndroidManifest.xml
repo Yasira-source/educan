@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.educan.educanapp">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+<!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />-->
     <queries>
         <!-- If your app checks for SMS support -->
         <intent>
