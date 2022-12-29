@@ -140,10 +140,10 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
                   if (snapshot.hasData) {
                     List<SubStatusData>? data = snapshot.data;
                     return CreditCard(
-                      cardNumber: '${data![0].plan} -  ${data![0].planLevel}',
-                      cardExpiry: data![0].end,
+                      cardNumber: '${data![0].plan} -  ${data[0].planLevel}',
+                      cardExpiry: data[0].end,
                       cardHolderName:
-                          '${data![0].left} left ( ${data![0].status == 'F' ? 'Expired' : 'Active'} )',
+                          '${data[0].left} left ( ${data[0].status == 'F' ? 'Expired' : 'Active'} )',
                       bankName: _pname,
                       cvv: cvv,
                       // showBackSide: true,

@@ -149,7 +149,7 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
                     // 5,
                         (index) {
 
-                      return _buildCard2( primary[index],primaryWords[index],primaryCount[index],context,data![0].limit!,data![0].plan!);
+                      return _buildCard2( primary[index],primaryWords[index],primaryCount[index],context,data![0].limit!,data[0].plan!);
                       // return _buildCard2( "assets/images/", context);
 
                       // return SizedBox
@@ -188,7 +188,7 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
                     // 5,
                         (index) {
 
-                      return _buildCard2( olevel[index],olevelWords[index],olevelCount[index],context,data![0].limit!,data![0].plan!);
+                      return _buildCard2( olevel[index],olevelWords[index],olevelCount[index],context,data![0].limit!,data[0].plan!);
                       // return _buildCard2( "assets/images/", context);
 
                       // return SizedBox
@@ -232,7 +232,7 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
                     // 5,
                         (index) {
 
-                      return _buildCard2( alevel[index],alevelWords[index],alevelCount[index],context,data![0].limit!,data![0].plan!);
+                      return _buildCard2( alevel[index],alevelWords[index],alevelCount[index],context,data![0].limit!,data[0].plan!);
                       // return _buildCard2( "assets/images/", context);
 
                       // return SizedBox

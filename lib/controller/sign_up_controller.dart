@@ -41,6 +41,41 @@ class SignUpController extends GetxController with BaseController {
     return response;
   }
 
+ updateData(String fname, String mname,String lname, String mobile,String whats,String email,String prof,String nation,String address,String dob,String reason,String password,String uid) async {
+    var request = {
+      'fname': fname,
+      'mname': mname,
+      'lname': lname,
+      'mobile': mobile,
+      'whats': whats,
+      'email': email,
+      'prof': prof,
+      'nation': nation,
+      'address': address,
+      'dob': dob,
+       'id': uid,
+        'reason': reason,
+         'password': password,
+    };
+    showLoading('Updating your account...');
+    var response = await BaseClient()
+        .post('https://eaoug.org/admin/app/api/member',
+            '/update_member.php', request)
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        DialogHelper.showErroDialog(description: apiError["reason"]);
+
+      } else {
+        handleError(error);
+      }
+    });
+    if (response == null) return;
+    hideLoading();
+    // print(response);
+    return response;
+  }
+
   postLessonOrder(String user_id, String mode, String details,
       String lclass, String subject, String concept,String attendants,String hours,String location) async {
     var request = {

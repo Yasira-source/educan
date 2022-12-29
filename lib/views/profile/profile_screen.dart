@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String upname = '';
   String uid = '';
   String email = '';
+  String pic = '';
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
   @override
@@ -30,6 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       uid = (prefs.getString('uid') ?? '');
+       pic = (prefs.getString('pic') ?? '');
       _pname = (prefs.getString('username') ?? '');
       email = (prefs.getString('email') ?? '');
       final x = _pname.split(" ");
@@ -40,59 +43,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFeff5f3),
       appBar: AppBar(
+         elevation: 0,
         backgroundColor: const Color(0xFF1A8F00),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Account",
-              style: TextStyle(color: Colors.white),
-            ),
-
-            Text(" Welcome $upname!",
-                style: const TextStyle(
-                    color: Colors.yellow, fontSize: 16)),
-            Text(email,
-                style: const TextStyle(color: Colors.white, fontSize: 12)),
-            const SizedBox(
-              height: 6,
-            ),
-          ],
+        title:  const Text(
+          "Account",
+          style: TextStyle(color: Colors.white),
         ),
+        
+         
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          Stack(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => CartScreen()));
-                  },
-                  icon: const Icon(Icons.shopping_cart_outlined)),
-              Obx(
-                () => Positioned(
-                    top: 0,
-                    right: 6,
-                    child: cartController.products.length +
-                        cartController.productsx.length ==
-                            0
-                        ? Container()
-                        : Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: const BoxDecoration(
-                                color: Colors.red, shape: BoxShape.circle),
-                            child: Text(
-                              '${cartController.products.length + cartController.productsx.length}',
-                              style: const TextStyle(fontSize: 12),
-                            ),
-                          )),
-              ),
-            ],
-          )
+      // IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+      Stack(
+        children: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+              },
+              icon: const Icon(Icons.shopping_cart_outlined)),
+          Obx(
+            () => Positioned(
+                top: 0,
+                right: 6,
+                child: cartController.products.length <= 0
+                    ? Container()
+                    : Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                            color: Colors.red, shape: BoxShape.circle),
+                        child: Text(
+                          '${cartController.products.length}',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      )),
+          ),
+        ],
+      )
         ],
       ),
-      body: SingleChildScrollView(child: Body()),
+      
+      
+      
+      body: SingleChildScrollView(child: Body(uid: uid,pic: pic,upname: upname,email: email,),)
     );
   }
 }
