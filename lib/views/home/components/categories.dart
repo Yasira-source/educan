@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../edu_talk/pages/portfolio/portfolio_tutorials_sub_page.dart';
 import '../../order_lesson/order_lesson.dart';
+import '../../subscription_page/wallet_details_page.dart';
 
 
 class Categories extends StatelessWidget {
@@ -52,7 +53,7 @@ class Categories extends StatelessWidget {
 
       {"icon": "assets/images/ed_subscribe.png", "text": "Subscription","press":() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SubscriptionDetails()));
+                    builder: (context) => SubscriptionDetails2()));
               }},
 
     ];
