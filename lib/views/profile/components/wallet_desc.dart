@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +11,8 @@ import '../../../models/transactions_model.dart';
 import '../../../theme.dart';
 
 import 'package:http/http.dart' as http;
+
+import '../../subscription_page/enter_topup_amount.dart';
 
 class WalletDescPage extends StatefulWidget {
   @override
@@ -108,6 +111,7 @@ class _WalletDescPageState extends State<WalletDescPage> {
                         //               builder: (context) => EnterDonationAmount(
                         //                 id: "1",
                         //               )));
+                         Get.to(EnterDonationAmount2(id: '1',));
                       },
                       child: Container(
                         height: 50,

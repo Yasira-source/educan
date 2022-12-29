@@ -1,6 +1,7 @@
 import 'package:educanapp/views/classes_page/classes_page.dart';
 import 'package:educanapp/views/classes_page/classes_page_2.dart';
 import 'package:educanapp/views/features/presentation/pages/portfolio/portfolio_tutorials_sub_page.dart';
+import 'package:educanapp/views/home/components/wallet_auth_page.dart';
 import 'package:educanapp/views/pdf_view/pdfViewerPage.dart';
 import 'package:educanapp/views/pdf_viewer_page/pdf_viewer_page.dart';
 import 'package:educanapp/views/scholarship_page/scholarship_page.dart';
@@ -53,7 +54,7 @@ class Categories extends StatelessWidget {
 
       {"icon": "assets/images/ed_subscribe.png", "text": "Subscription","press":() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SubscriptionDetails2()));
+                    builder: (context) => WalletAuth()));
               }},
 
     ];

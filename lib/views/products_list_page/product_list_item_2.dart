@@ -34,7 +34,7 @@ class ProductsListItem2 extends StatelessWidget {
  Widget _buildCardy(ProductsData data,int code, bool added, bool isFavorite, context) {
     return Padding(
         padding:
-        const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
+        const EdgeInsets.only(top: 5.0, bottom: .0, left: 5.0, right: 5.0),
         child: InkWell(
             onTap: () {
 

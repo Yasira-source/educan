@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:awesome_card/awesome_card.dart';
 import 'package:educanapp/models/sub_plans.dart';
 import 'package:educanapp/utils/constants_new.dart';
+import 'package:educanapp/views/profile/components/daily_page.dart';
 import 'package:educanapp/views/profile/components/wallet_desc.dart';
+import 'package:educanapp/views/subscription_page/enter_topup_amount.dart';
 import 'package:educanapp/views/subscription_page/subscription_page_second.dart';
 
 import 'package:flutter/material.dart';
@@ -164,7 +166,6 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
-                                   
                                     Row(
                                       children: [
                                         const Text(
@@ -186,9 +187,8 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                         )
                                       ],
                                     ),
-                                   
                                     Row(
-                                      children:  [
+                                      children: [
                                         const Text(
                                           'UGX  ',
                                           style: TextStyle(color: Colors.white),
@@ -202,14 +202,16 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                         IconButton(
+                                        IconButton(
                                           icon: const Icon(
-                                            Icons.remove_red_eye_outlined,
+                                            Icons.add_circle_outline_rounded,
                                             color: Colors.white,
                                             size: 15,
                                           ),
                                           onPressed: () {
-                                            Get.to(WalletDescPage());
+                                            Get.to(EnterDonationAmount2(
+                                              id: '1',
+                                            ));
                                           },
                                         )
                                       ],
@@ -255,18 +257,23 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                               fontWeight: FontWeight.bold)),
                                     ],
                                   ),
-                                  Column(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/icons/1017280091582962144.svg',
-                                        color: const Color(0xFF02182e),
-                                        width: 22,
-                                      ),
-                                      const Text('Transactions',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold)),
-                                    ],
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(()=>DailyPage());
+                                    },
+                                    child: Column(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/icons/1017280091582962144.svg',
+                                          color: const Color(0xFF02182e),
+                                          width: 22,
+                                        ),
+                                        const Text('Transactions',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold)),
+                                      ],
+                                    ),
                                   ),
                                   Column(
                                     children: [
@@ -293,6 +300,9 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                               child: InkWell(
                                 onTap: () {
                                   //  cartController.addProduct(data);
+                                  Get.to(EnterDonationAmount2(
+                                    id: '1',
+                                  ));
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
