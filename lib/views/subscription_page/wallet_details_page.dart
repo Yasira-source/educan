@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:awesome_card/awesome_card.dart';
 import 'package:educanapp/models/sub_plans.dart';
 import 'package:educanapp/utils/constants_new.dart';
+import 'package:educanapp/views/profile/components/wallet_desc.dart';
 import 'package:educanapp/views/subscription_page/subscription_page_second.dart';
 
 import 'package:flutter/material.dart';
@@ -145,57 +146,71 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                     return Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
-                        height: 220,
+                        height: 235,
                         decoration: const BoxDecoration(
-                           
-                              color: Colors.white,
-                           
-                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
                         child: Column(
                           children: [
                             Container(
-                              height: 84,
+                              height: 112,
                               decoration: const BoxDecoration(
-                                 
-                                    color: Color(0xFF1A8F00),
-                              
-                                  borderRadius:
-                                      BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))),
+                                  color: Color(0xFF1A8F00),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20))),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
-                                    const SizedBox(height: 10,),
+                                   
                                     Row(
-                                      children: const [
-                                        Text(
+                                      children: [
+                                        const Text(
                                           'My Wallet',
                                           style: TextStyle(color: Colors.white),
                                         ),
-                                        SizedBox(width: 10,),
-                                        Icon(
-                                          Icons.info,
-                                          color: Colors.white,size: 15,
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.info,
+                                            color: Colors.white,
+                                            size: 15,
+                                          ),
+                                          onPressed: () {
+                                            Get.to(WalletDescPage());
+                                          },
                                         )
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 18,
-                                    ),
+                                   
                                     Row(
-                                      children: const [
-                                        Text(
-                                          'UGX ',
+                                      children:  [
+                                        const Text(
+                                          'UGX  ',
                                           style: TextStyle(color: Colors.white),
                                         ),
-                                        Text(
-                                          '......',
-                                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                                        const Text(
+                                          ' 3,000',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                          SizedBox(width: 10,),
-                                        Icon(
-                                          Icons.remove_red_eye_outlined,
-                                          color: Colors.white,size: 15,
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                         IconButton(
+                                          icon: const Icon(
+                                            Icons.remove_red_eye_outlined,
+                                            color: Colors.white,
+                                            size: 15,
+                                          ),
+                                          onPressed: () {
+                                            Get.to(WalletDescPage());
+                                          },
                                         )
                                       ],
                                     ),
@@ -209,7 +224,8 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -218,7 +234,12 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                         color: const Color(0xFF02182e),
                                         width: 22,
                                       ),
-                                      const Text('Send Money',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                      const Text(
+                                        'Send Money',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ],
                                   ),
                                   Column(
@@ -228,7 +249,10 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                         color: const Color(0xFF02182e),
                                         width: 22,
                                       ),
-                                      const Text('Withdraw',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                                      const Text('Withdraw',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold)),
                                     ],
                                   ),
                                   Column(
@@ -238,7 +262,10 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                         color: const Color(0xFF02182e),
                                         width: 22,
                                       ),
-                                      const Text('Transactions',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                                      const Text('Transactions',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold)),
                                     ],
                                   ),
                                   Column(
@@ -248,49 +275,55 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                         color: const Color(0xFF02182e),
                                         width: 22,
                                       ),
-                                      const Text('Pay',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                                      const Text('Pay',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold)),
                                     ],
                                   ),
                                 ],
                               ),
                             ),
-const SizedBox(height: 10,),
-                               SizedBox(
-                            height: 30,
-                            width: MediaQuery.of(context).size.width-30,
-                            child: InkWell(
-                              onTap: () {
-                                //  cartController.addProduct(data);
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF1A8F00),
-                                  borderRadius: BorderRadius.circular(3),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 30,
+                              width: MediaQuery.of(context).size.width - 30,
+                              child: InkWell(
+                                onTap: () {
+                                  //  cartController.addProduct(data);
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF1A8F00),
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
                                         'assets/icons/1017280091582962144.svg',
-                                        color:  Colors.white,
+                                        color: Colors.white,
                                         width: 22,
                                       ),
-                                      const SizedBox(width: 10,),
-                                    const Text(
-                                      'DEPOSIT MONEY',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
+                                      const SizedBox(
+                                        width: 10,
                                       ),
-                                    ),
-                                  ],
+                                      const Text(
+                                        'DEPOSIT MONEY',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                
                           ],
                         ),
                       ),
@@ -313,10 +346,8 @@ const SizedBox(height: 10,),
             const SizedBox(height: 15.0),
             const Divider(),
             const SizedBox(height: 15.0),
-           
-                    uid!=''? LatestTransactions(uid):Container(),
-          
-            ],
+            uid != '' ? LatestTransactions(uid) : Container(),
+          ],
         ),
       ),
     );
