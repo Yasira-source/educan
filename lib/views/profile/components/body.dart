@@ -96,8 +96,8 @@ class _BodyState extends State<Body> {
                padding: const EdgeInsets.all(8.0),
                child: Row(
                 children: [
-                   SvgPicture.asset(
-                  'assets/icons/wallet-svgrepo-com.svg',
+                   Image.asset(
+                  'assets/icons/wallet-filled-money-tool.png',
                   color:  Colors.blue,
                   width: 22,
                 ),
@@ -133,7 +133,7 @@ class _BodyState extends State<Body> {
             ),
             ProfileMenu(
               text: "My Educan Wallet",
-              icon: "assets/icons/wallet-svgrepo-com.svg",
+              icon: "assets/icons/1017280091582962144.svg",
               press: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const SubscriptionDetails()));

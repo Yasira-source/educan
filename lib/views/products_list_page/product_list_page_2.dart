@@ -84,10 +84,11 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
         ],
       ),
       body: SingleChildScrollView(
+        // scrollDirection: Axis.vertical,
         child: Column(
           children: [
             // _buildFilterWidgets(screenSize),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             _buildProductsListPage(),
           ],
         ),
@@ -109,7 +110,7 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
               mainAxisSpacing: 4.0,
               shrinkWrap: true,
               crossAxisSpacing: 4.0,
-
+childAspectRatio: 0.68,
               scrollDirection: Axis.vertical,
               physics: const ClampingScrollPhysics(),
               children: data!.map((BookshopData item) {

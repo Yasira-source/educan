@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:educanapp/views/home/components/slider_design.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/adverts_model.dart';
@@ -21,6 +22,7 @@ class SpecialOffers extends StatelessWidget {
     //   throw Exception('Unexpected error occured!');
     // }
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,28 +46,23 @@ class SpecialOffers extends StatelessWidget {
                     // print(snapshot.error);
                     if (snapshot.hasData) {
                       List<AdvertsData>? data = snapshot.data;
-                      return  SizedBox(
-                        height: 180,
-                        child: ListView.builder(
-                          shrinkWrap:true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: data!.length,
-                          itemBuilder: (context, index) {
-
-                            return  SpecialOfferCard(
-                              image: data[index].image,
-                              category: data[index].id,
-                              numOfBrands: 18,
-                              press: () {},
-                            );
-
-
-                          },
-                          // ),
-                        ),
+                      return SizedBox(
+                        height: 150,
+                        width: MediaQuery.of(context).size.width,
+                        child: 
+                             AdsCarouselSlider(
+                              img1: data![0].image!,
+                              img2: data[0].image!,
+                              img3: data[0].image!,
+                              img4: data[0].image!,
+                              img5: data[0].image!,
+                            ),
+                          // },
+                          //   // ),
+                        // ),
                       );
                     } else {
-                      return  Container(
+                      return Container(
                         height: 2,
                       );
                     }
@@ -94,10 +91,10 @@ class SpecialOffers extends StatelessWidget {
 class SpecialOfferCard extends StatelessWidget {
   const SpecialOfferCard({
     Key? key,
-     this.category,
-     this.image,
-     this.numOfBrands,
-     this.press,
+    this.category,
+    this.image,
+    this.numOfBrands,
+    this.press,
   }) : super(key: key);
 
   final String? category, image;
@@ -110,65 +107,12 @@ class SpecialOfferCard extends StatelessWidget {
       padding: EdgeInsets.only(left: 8),
       child: GestureDetector(
         onTap: press,
-        child: SizedBox(
-          width: 360,
-          height: 180,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-                 decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFF343434).withOpacity(0.4),
-                          Color(0xFF343434).withOpacity(0.15),
-                        ],
-                      ),
-                    ),
-              child: Stack(
-                children: [
-                  Image.network(
-                    image!,
-                    fit: BoxFit.cover,
-                  ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     gradient: LinearGradient(
-                  //       begin: Alignment.topCenter,
-                  //       end: Alignment.bottomCenter,
-                  //       colors: [
-                  //         Color(0xFF343434).withOpacity(0.4),
-                  //         Color(0xFF343434).withOpacity(0.15),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: EdgeInsets.symmetric(
-                  //     horizontal: 15.0,
-                  //     vertical: 10,
-                  //   ),
-                  //   child: Text.rich(
-                  //     TextSpan(
-                  //       style: TextStyle(color: Colors.white),
-                  //       children: [
-                  //         TextSpan(
-                  //           text: "$category\n",
-                  //           style: TextStyle(
-                  //             fontSize: 18,
-                  //             fontWeight: FontWeight.bold,
-                  //           ),
-                  //         ),
-                  //         TextSpan(text: "$numOfBrands Brands")
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-          ),
+        child: AdsCarouselSlider(
+          img1: image!,
+          img2: image!,
+          img3: image!,
+          img4: image!,
+          img5: image!,
         ),
       ),
     );

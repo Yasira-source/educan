@@ -84,7 +84,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
         child: Column(
           children: [
             // _buildFilterWidgets(screenSize),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             _buildProductsListPage(),
           ],
         ),

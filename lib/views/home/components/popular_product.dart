@@ -576,7 +576,7 @@ class PopularProducts extends StatelessWidget {
 
             },
             child: Container(
-                width: 160,
+                width: 180,
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.0),

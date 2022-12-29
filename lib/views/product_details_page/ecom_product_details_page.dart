@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:educanapp/views/product_details_page/product_carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -96,10 +97,14 @@ class EcomProductDetailsView extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * .35,
+            // height: MediaQuery.of(context).size.height * .35,
             padding: const EdgeInsets.only(bottom: 30, top: 20),
             width: double.infinity,
-            child: Image.network("https://educanug.com/Educan/${data.pimage1!}"),
+            child:ProductCarouselSlider(
+              img1: data.pimage1!,
+              img2: data.pimage2!,
+              img3: data.pimage3!,
+            ),
           ),
           Expanded(
             child: Stack(
