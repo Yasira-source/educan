@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:educanapp/views/consult/consultants.dart';
-import 'package:educanapp/views/library_categories_page/library_categories_page.dart';
 import 'package:educanapp/views/scholarship_page/scholarship_details_page.dart';
-import 'package:educanapp/views/subscription_page/subscription_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:ionicons/ionicons.dart';
@@ -11,7 +8,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/scholarships_model.dart';
-import '../topics_page/topics_page.dart';
 
 class ScholarshipPage extends StatefulWidget {
   ScholarshipPage(
@@ -27,7 +23,7 @@ Future<List<ScholarshipData>> fetchScholarships() async {
       'https://educanug.com/educan_new/educan/api/library/get_schools.php'));
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
-  print(jsonResponse);
+  // print(jsonResponse);
   return jsonResponse.map((data) => ScholarshipData.fromJson(data)).toList();
   // } else {
   //   throw Exception('Unexpected error occured!');

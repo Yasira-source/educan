@@ -20,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String uid = '';
   String email = '';
   String pic = '';
+  String pass = '';
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
   @override
@@ -35,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
        pic = (prefs.getString('pic') ?? '');
       _pname = (prefs.getString('username') ?? '');
       email = (prefs.getString('email') ?? '');
+      pass = (prefs.getString('pass') ?? '');
       final x = _pname.split(" ");
       upname = x[0];
     });
@@ -45,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFeff5f3),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
          elevation: 0,
         backgroundColor: const Color(0xFF1A8F00),
         title:  const Text(
@@ -86,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       
       
       
-      body: SingleChildScrollView(child: Body(uid: uid,pic: pic,upname: upname,email: email,),)
+      body: SingleChildScrollView(child: Body(uid: uid,pic: pic,upname: upname,email: email,pass: pass,),)
     );
   }
 }

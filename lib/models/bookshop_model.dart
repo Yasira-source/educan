@@ -15,6 +15,8 @@ class BookshopData {
   final String? filelogo2;
   final String? forsubscribe;
   final String? regularPrice;
+  final String? available;
+  final String? qty;
 
 
   BookshopData(
@@ -34,6 +36,8 @@ class BookshopData {
       this.filelogo2,
       this.forsubscribe,
       this.regularPrice,
+      this.available,
+      this.qty,
       });
 
   factory BookshopData.fromJson(Map<String, dynamic> json) {
@@ -50,10 +54,13 @@ class BookshopData {
       detail: json['_detail'],
       rating: json['_rating'],
       filelogo: json['_filelogo'],
-      filelogo1: json['_filelogo'],
-      filelogo2: json['_filelogo'],
+      filelogo1: json['_filelogo1'],
+      filelogo2: json['_filelogo2'],
       forsubscribe: json['forsubscribe'],
       regularPrice: json['_regularPrice'].toString(),
+      available: json['available'].toString(),
+      qty: json['qty'].toString(),
+
    
     );
   }

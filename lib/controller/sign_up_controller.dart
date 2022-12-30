@@ -41,21 +41,45 @@ class SignUpController extends GetxController with BaseController {
     return response;
   }
 
- updateData(String fname, String mname,String lname, String mobile,String email,String address,String password,String uid) async {
+ updateData(String fname, String mobile,String email,String password,String uid) async {
     var request = {
       'fname': fname,
-      'mname': mname,
-      'lname': lname,
       'mobile': mobile,
       'email': email,
-      'address': address,
        'id': uid,
          'password': password,
     };
     showLoading('Updating your account...');
     var response = await BaseClient()
-        .post('https://eaoug.org/admin/app/api/member',
+        .post('https://educanug.com/educan_new/educan/api/user',
             '/update_member.php', request)
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        DialogHelper.showErroDialog(description: apiError["reason"]);
+
+      } else {
+        handleError(error);
+      }
+    });
+    if (response == null) return;
+    hideLoading();
+    // print(response);
+    return response;
+  }
+
+  updateShippingData(String fname, String mobile,String email,String password,String uid) async {
+    var request = {
+      'country': fname,
+      'district': mobile,
+      'city': email,
+       'id': uid,
+         'other': password,
+    };
+    showLoading('Updating your Shipping Details...');
+    var response = await BaseClient()
+        .post('https://educanug.com/educan_new/educan/api/user',
+            '/update_member_shipping.php', request)
         .catchError((error) {
       if (error is BadRequestException) {
         var apiError = json.decode(error.message!);

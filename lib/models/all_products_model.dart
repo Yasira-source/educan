@@ -14,8 +14,9 @@ final String? pimage3;
 final String? pimage4;
 final String? store_id;
 final String? pavailability;
+final String? qty;
 
-  ProductsData({ this.pid, this.pname, this.pprice,this.prprice,this.category_id,this.pdiscount,this.pdesc,this.prating,this.pimage1,this.pimage2,this.pimage3,this.pimage4,this.store_id,this.pavailability});
+  ProductsData({ this.pid, this.pname, this.pprice,this.prprice,this.category_id,this.pdiscount,this.pdesc,this.prating,this.pimage1,this.pimage2,this.pimage3,this.pimage4,this.store_id,this.pavailability,this.qty});
 
   factory ProductsData.fromJson(Map<String, dynamic> json) {
     return ProductsData(
@@ -33,6 +34,7 @@ final String? pavailability;
         pimage4:json['pimage4'],
         store_id:json['store_id'],
         pavailability:json['pavailability'],
+        qty:json['qty'],
     );
   }
 }

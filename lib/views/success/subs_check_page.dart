@@ -1,12 +1,14 @@
 
+import 'package:educanapp/views/home/components/wallet_auth_page.dart';
 import 'package:educanapp/views/home/home_screen.dart';
-import 'package:educanapp/views/subscription_page/subscription_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils/constants_new.dart';
 import '../../utils/defaultButton.dart';
 import '../../utils/widgets/emptySection.dart';
 import '../../utils/widgets/subTitle.dart';
+import '../subscription_page/enter_topup_amount.dart';
 
 class SubscribeMessage extends StatefulWidget {
   const SubscribeMessage({Key? key}) : super(key: key);
@@ -29,15 +31,11 @@ class _SubscribeMessageState extends State<SubscribeMessage> {
             emptyMsg: 'Sorry !!',
           ),
           const SubTitle(
-            subTitleText: "Your Current Subscription Plan can not enable you to access this file",
+            subTitleText: "Your Current Wallet Balance is not enough to access this file",
           ),
-          DefaultButton(
-            btnText: 'Subscribe Now',
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const SubscriptionDetails(),
-              ),
-            ),
+           DefaultButton(
+            btnText: 'Deposit Money Now',
+            onPressed: () => Get.off(()=>EnterDonationAmount2(id: '1')),
           ),
         ],
       ),

@@ -155,7 +155,8 @@ class _SignFormState extends State<SignForm> {
     await pref.setString("lname", got['display_name']);
     await pref.setString("phone", got['phone']);
     await pref.setString("email", got['email']);
-    // await pref.setString("pic", got['pic']);
+    await pref.setString("pic", got['pic']);
+    await pref.setString("pass", got['pass']);
 
     Get.off(() => HomeScreen(
           // username: got['display_name'],

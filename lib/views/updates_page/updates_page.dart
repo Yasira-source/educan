@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:educanapp/views/consult/consultants.dart';
-import 'package:educanapp/views/library_categories_page/library_categories_page.dart';
 import 'package:educanapp/views/scholarship_page/scholarship_details_page.dart';
-import 'package:educanapp/views/subscription_page/subscription_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:ionicons/ionicons.dart';

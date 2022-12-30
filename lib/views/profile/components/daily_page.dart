@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:educanapp/views/subscription_page/enter_topup_amount.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -35,7 +36,7 @@ class _DailyPageState extends State<DailyPage> {
   }
   Future<List<TransactionsData>> fetchRelated2(String tag) async {
     final response = await http.get(Uri.parse(
-        'https://eaoug.org/admin/app/api/member/get_app_six_months_trans.php?id=$tag'));
+        'https://educanug.com/educan_new/educan/api/user/get_app_six_months_trans.php?id=$tag'));
     // if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
     // print(jsonResponse);
@@ -127,11 +128,11 @@ const SizedBox(height: 20,),
                                   width: 180,
               child: InkWell(
                 onTap: () {
-                  // cartController.addProduct(data);
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //               builder: (context) => EnterDonationAmount(
-                  //                 id: "1",
-                  //               )));
+            
+                  Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EnterDonationAmount2(
+                                  id: "1",
+                                )));
 
                 },
                 child: Container(
@@ -198,34 +199,40 @@ Widget transactionItem({TransactionsData? data}) {
   String status;
   bool ch = true;
   ddate = data!.dateCreated!;
-  if (data.type == "W" || data.type == "L" || data.type == "LE") {
-    icon = 'assets/18.gif';
-    amount = '-${f.format(int.parse(data.amount!))}';
-    ch =false;
-    status = data.status == '1' ? 'Successful' : 'Pending';
-    if (data.type == "W") {
-      title = 'Withdraw Via Cashier ($status)';
-    } else {
-      title = 'Loan Repayment ($status)';
-    }
-  } else if (data.type == "A") {
-    icon = 'assets/17.gif';
-    amount = '+${f.format(int.parse(data.amount!))}';
-    status = data.status == '1' ? 'Successful' : 'Pending';
+if (data.type == "W" || data.type == "L" || data.type == "LE") {
+        icon = 'assets/18.gif';
+        amount = '-${f.format(int.parse(data.amount!))}';
+        ch = false;
+        status = data.status == '1' ? 'Successful' : 'Pending';
+        if (data.type == "W") {
+        
+        title = '${data.reason} ($status)';
+        } else {
+         
+        title = '${data.reason} ($status)';
+        }
+      } else if (data.type == "A" || data.type == "D" ) {
+        icon = 'assets/17.gif';
+        amount = '+${f.format(int.parse(data.amount!))}';
+        status = data.status == '1' ? 'Successful' : 'Pending';
+        if (data.type == "D") {
+          
+        title = '${data.reason} ($status)';
+        } else {
+          
+        title = '${data.reason} ($status)';
+        }
 
-    title = '${data.reason} ($status)';
-  } else if (data.type == "SMS" || data.type == "CW" || data.type == "C")  {
-    icon = 'assets/18.gif';
-    amount = '-${f.format(int.parse(data.amount!))}';
-    status = data.status == '1' ? 'Successful' : 'Pending';
-
-    title = '${data.reason} ($status)';
-  } else {
-    icon = 'assets/17.gif';
-    amount = '+${f.format(int.parse(data.amount!))}';
-    status = data.status == '1' ? 'Successful' : 'Pending';
-        title = '${data.activity}';
-  }
+        // title = '${data.reason} ($status)';
+      } else {
+        icon = 'assets/17.gif';
+        amount = '+${f.format(int.parse(data.amount!))}';
+        status = data.status == '1' ? 'Successful' : 'Pending';
+       
+      
+        title = '${data.reason} ($status)';
+        
+      }
 
   return Container(
     padding: const EdgeInsets.all(1),

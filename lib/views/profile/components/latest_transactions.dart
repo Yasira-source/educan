@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:educanapp/views/profile/components/daily_page.dart';
+import 'package:educanapp/views/subscription_page/enter_topup_amount.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +19,7 @@ class LatestTransactions extends StatelessWidget {
 
   Future<List<TransactionsData>> fetchRelated(String tag) async {
     final response = await http.get(Uri.parse(
-        'https://eaoug.org/admin/app/api/member/get_latest_app_transactions.php?id=$tag'));
+        'https://educanug.com/educan_new/educan/api/user/get_latest_app_transactions.php?id=$tag'));
     // if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
     // print(jsonResponse);
@@ -44,20 +45,17 @@ class LatestTransactions extends StatelessWidget {
         ch = false;
         status = data.status == '1' ? 'Successful' : 'Pending';
         if (data.type == "W") {
-          title = 'Withdraw Via Cashier ($status)';
+         
+        title = '${data.reason} ($status)';
         } else {
-          title = 'Loan Repayment ($status)';
+          
+        title = '${data.reason} ($status)';
         }
-      } else if (data.type == "A") {
+      } else if (data.type == "A" || data.type == "D" ) {
         icon = 'assets/17.gif';
         amount = '+${f.format(int.parse(data.amount!))}';
         status = data.status == '1' ? 'Successful' : 'Pending';
-
-        title = '${data.reason} ($status)';
-      } else if (data.type == "SMS" || data.type == "CW" || data.type == "C") {
-        icon = 'assets/18.gif';
-        amount = '-${f.format(int.parse(data.amount!))}';
-        status = data.status == '1' ? 'Successful' : 'Pending';
+       
 
         title = '${data.reason} ($status)';
       } else {
@@ -65,7 +63,8 @@ class LatestTransactions extends StatelessWidget {
         amount = '+${f.format(int.parse(data.amount!))}';
         status = data.status == '1' ? 'Successful' : 'Pending';
        
-          title = '${data.activity}';
+          
+        title = '${data.reason} ($status)';
         
       }
 
@@ -167,10 +166,10 @@ const SizedBox(height: 20,),
               child: InkWell(
                 onTap: () {
                   // cartController.addProduct(data);
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //               builder: (context) => EnterDonationAmount(
-                  //                 id: "1",
-                  //               )));
+                  Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EnterDonationAmount2(
+                                  id: "1",
+                                )));
 
                 },
                 child: Container(

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:awesome_card/awesome_card.dart';
 import 'package:educanapp/models/sub_plans.dart';
 import 'package:educanapp/utils/constants_new.dart';
 import 'package:educanapp/views/profile/components/daily_page.dart';
@@ -34,6 +33,7 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
   String upname = '';
   String uid = '';
 
+  List balance = [];
   void secureScreen() async {
     await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
     await FlutterWindowManager.clearFlags(
@@ -43,61 +43,39 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
 
   @override
   void initState() {
+       _loadCounter();
     super.initState();
+   
     secureScreen();
-    _loadCounter();
-    // futureAlbum = fetchSubStatus(uid);
+  
   }
 
   _loadCounter() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       uid = (prefs.getString('uid') ?? '');
-      _pname = (prefs.getString('username') ?? '');
-      final x = _pname.split(" ");
-      upname = x[0];
+      // fetchSubStatus(uid);
     });
   }
 
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
 
-  String cardNumber = "5450 7879 4864 7854",
-      cardExpiry = "10/25",
-      cardHolderName = "John Travolta",
-      bankName = "Educan Virtual Card",
-      cvv = "456";
-
-  Future<List<SubStatusData>> fetchSubStatus(String tag) async {
-    final response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_status.php?user=$tag'));
-    // if (response.statusCode == 200) {
-    List jsonResponse = json.decode(response.body);
-    // print(jsonResponse);
-    return jsonResponse.map((data) => SubStatusData.fromJson(data)).toList();
-    // } else {
-    //   throw Exception('Unexpected error occured!');
-    // }
+  Future<String> fetchSubStatus(String tag) async {
+    var res = await http.get(Uri.parse(
+        'https://educanug.com/educan_new/educan/api/user/get_wallet_balance.php?user=$tag'));
+    var resBody = json.decode(res.body);
+     setState(() {
+      balance = resBody;
+    
+    });
+    return '';
   }
 
-  static const List<SubPlans> plans = [
-    SubPlans(
-      name: 'Primary',
-      code: 3,
-    ),
-    SubPlans(
-      name: 'Secondary',
-      code: 2,
-    ),
-    SubPlans(
-      name: 'Both Levels',
-      code: 1,
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 225, 247, 225),
+      backgroundColor: const Color.fromARGB(255, 225, 247, 225),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A8F00),
         elevation: 0,
@@ -139,12 +117,12 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
             const SizedBox(
               height: 15,
             ),
-            FutureBuilder<List<SubStatusData>>(
+            FutureBuilder<String>(
                 future: fetchSubStatus(uid),
                 builder: (context, snapshot) {
                   // print(snapshot.error);
                   if (snapshot.hasData) {
-                    List<SubStatusData>? data = snapshot.data;
+                    // List<SubStatusData>? data = snapshot.data;
                     return Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
@@ -193,9 +171,9 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                           'UGX  ',
                                           style: TextStyle(color: Colors.white),
                                         ),
-                                        const Text(
-                                          ' 3,000',
-                                          style: TextStyle(
+                                         Text(
+                                          balance[0]['balance'],
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -259,7 +237,7 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(()=>DailyPage());
+                                      Get.to(() => DailyPage());
                                     },
                                     child: Column(
                                       children: [
@@ -339,17 +317,8 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
                       ),
                     );
                   } else {
-                    return CreditCard(
-                      cardNumber: '-',
-                      cardExpiry: '-',
-                      cardHolderName: '-',
-                      bankName: _pname,
-                      cvv: '-',
-                      // showBackSide: true,
-                      frontBackground: CardBackgrounds.custom(0xFF1A8F00),
-                      backBackground: CardBackgrounds.white,
-                      cardType: CardType.other,
-                      showShadow: true,
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
                   }
                 }),

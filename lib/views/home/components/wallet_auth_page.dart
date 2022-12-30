@@ -81,8 +81,8 @@ class _SignFormState extends State<SignForm> {
   _loadCounter() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      // passc = (prefs.getString('pass') ?? '');
-      passc = '0000';
+      passc = (prefs.getString('pass') ?? '');
+      // passc = '0000';
     });
   }
 

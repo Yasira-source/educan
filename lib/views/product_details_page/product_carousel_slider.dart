@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:educanapp/views/product_details_page/image_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -34,26 +35,41 @@ class _ProductCarouselSliderState extends State<ProductCarouselSlider> {
           children: [
             CarouselSlider(
               items: images
-                  .map((e) => Container(
-                        color: Colors.white,
-                        child: CachedNetworkImage(
-                          imageUrl: 'https://educanug.com/Educan/' + e,
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                image: DecorationImage(image: imageProvider)),
-                          ),
-                          placeholder: (context, url) => Shimmer.fromColors(
-                            highlightColor: Colors.white,
-                            baseColor: Colors.grey.shade300,
-                            child: Container(
-                              color: Colors.grey.shade300,
+                  .map((e) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ImageDetailScreen(
+                              link: 'https://educanug.com/Educan/$e',
+                            );
+                          }));
+                        },
+                        child: Container(
+                          color: Colors.white,
+                          child: CachedNetworkImage(
+                            imageUrl: 'https://educanug.com/Educan/$e',
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.white10,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                  image: DecorationImage(image: imageProvider)),
                             ),
-                          ),
-                          errorWidget: (context, url, error) => const Center(
-                            child: Icon(
-                              Icons.error_outline,
-                              color: Colors.grey,
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              highlightColor: Colors.white,
+                              baseColor: Colors.grey.shade300,
+                              child: Container(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => const Center(
+                              child: Icon(
+                                Icons.error_outline,
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
                         ),
@@ -61,22 +77,17 @@ class _ProductCarouselSliderState extends State<ProductCarouselSlider> {
                   .toList(),
               options: CarouselOptions(
                   autoPlay: true,
-                  enlargeCenterPage: true,
+                  // height: 00,
                   aspectRatio: 1.5,
-                  viewportFraction: 1,
+                  viewportFraction: 0.70,
+                  enlargeCenterPage: true,
+                  pageSnapping: true,
                   onPageChanged: (index, reason) {
                     setState(() {
                       _currentIndex = index;
                     });
                   }),
             ),
-            // Positioned(
-            //     child: IconButton(
-            //   onPressed: () {
-            //     Navigator.pop(context);
-            //   },
-            //   icon: const Icon(Icons.arrow_back),
-            // ))
           ],
         ),
         Row(

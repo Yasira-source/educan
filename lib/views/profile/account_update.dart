@@ -26,11 +26,9 @@ class updateAccount2 extends StatefulWidget {
       {Key? key,
       required this.email,
       required this.password,
-      required this.names,
-      required this.othernames,
+   
       required this.fnames,
   
-      required this.address,
       required this.mobile,
   
       required this.uid,
@@ -40,11 +38,9 @@ class updateAccount2 extends StatefulWidget {
 
   String email;
   String password;
-  String names;
-  String othernames;
+
   String fnames;
  
-  String address;
   String mobile;
  
   String uid;
@@ -155,11 +151,11 @@ class _updateAccount2State extends State<updateAccount2> {
                         child: ClipOval(
                           child: (widget.profPic != '')
                               ? Image.network(
-                                  widget.profPic,
+                                  'https://educanug.com/Educan/${widget.profPic}',
                                   fit: BoxFit.fill,
                                 )
                               : Image.asset(
-                                  "assets/images/user.png",
+                                  "assets/account.png",
                                   fit: BoxFit.fill,
                                 ),
                         ),
@@ -184,7 +180,7 @@ class _updateAccount2State extends State<updateAccount2> {
                               var requestn = http.MultipartRequest(
                                   'POST',
                                   Uri.parse(
-                                      'https://eaoug.org/admin/app/api/member/update_photo.php'));
+                                      'https://educanug.com/educan_new/educan/api/user/update_photo.php'));
                               requestn.fields['uid'] = widget.uid;
                               requestn.files.add(http.MultipartFile.fromBytes(
                                   'id_photo', File(file.path).readAsBytesSync(),
@@ -254,12 +250,7 @@ if(res.statusCode==200){
                 const SizedBox(height: 10),
                 buildSurNamesFormField(),
                 const SizedBox(height: 10),
-                buildFirstNamesFormField(),
-                const SizedBox(height: 10),
-                buildOtherNamesFormField(),
-                const SizedBox(height: 10),
-                buildAddressFormField(),
-                const SizedBox(height: 10),
+               
                 buildEmailFormField(),
                 const SizedBox(height: 10),
                 buildPasswordFormField(),
@@ -275,11 +266,9 @@ if(res.statusCode==200){
                     onTap: () async {
                       result = await controller.updateData(
                           widget.fnames,
-                          widget.names,
-                          widget.othernames,
+                          
                           widget.mobile,
                           widget.email,
-                          widget.address,
                           widget.password,
                           widget.uid);
                       // print(result);
@@ -462,52 +451,19 @@ if(res.statusCode==200){
   }
 
 
-  TextFormField buildAddressFormField() {
-    return TextFormField(
-      initialValue: widget.address,
-      keyboardType: TextInputType.name,
-      onSaved: (newValue) => setState(() {
-        widget.address = newValue!;
-      }),
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kNameNullError);
-          setState(() {
-            widget.address = value;
-          });
-        }
-        return;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kNameNullError);
-          return "";
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-        labelText: "Shipping Address",
-        hintText: "Enter your Desired Shipping Address",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        // suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-    );
-  }
 
   TextFormField buildSurNamesFormField() {
     return TextFormField(
-      initialValue: widget.names,
+      initialValue: widget.fnames,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => setState(() {
-        widget.names = newValue!;
+        widget.fnames = newValue!;
       }),
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNameNullError);
           setState(() {
-            widget.names = value;
+            widget.fnames = value;
           });
         }
         return;
@@ -520,8 +476,8 @@ if(res.statusCode==200){
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Surname",
-        hintText: "Enter your surname",
+        labelText: "Full Names",
+        hintText: "Enter your full names",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -564,39 +520,6 @@ if(res.statusCode==200){
     );
   }
 
-  TextFormField buildOtherNamesFormField() {
-    return TextFormField(
-      initialValue: widget.othernames,
-      keyboardType: TextInputType.name,
-      onSaved: (newValue) => setState(() {
-        widget.othernames = newValue!;
-      }),
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kNameNullError);
-          setState(() {
-            widget.othernames = value;
-          });
-        }
-        return;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kNameNullError);
-          return "";
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-        labelText: "Other names",
-        hintText: "Enter your other names",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-    );
-  }
 
   Future<File> getImage() async {
     final ImagePicker _picker = ImagePicker();

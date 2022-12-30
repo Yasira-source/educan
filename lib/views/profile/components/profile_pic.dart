@@ -33,7 +33,7 @@ class _ProfilePicState extends State<ProfilePic> {
               child: (widget.profPic != '')
                   ? Image.network(widget.profPic,fit: BoxFit.fill,)
                   : Image.asset(
-                      "assets/images/user.png",
+                      "assets/account.png",
                       fit: BoxFit.fill,
                     ),
             ),

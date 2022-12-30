@@ -93,8 +93,8 @@ class ProductDetailsView extends StatelessWidget {
             width: double.infinity,
             child: ProductCarouselSlider(
               img1: data.filelogo!,
-              img2: data.filelogo!,
-              img3: data.filelogo!,
+              img2: data.filelogo1!,
+              img3: data.filelogo2!,
             ),
 
             //  Image.network("https://educanug.com/Educan/${data.filelogo!}"),
@@ -115,40 +115,46 @@ class ProductDetailsView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  (((int.parse(data.regularPrice!) -
-                                                          data.price!) /
-                                                      int.parse(
-                                                          data.regularPrice!)) *
-                                                  100)
-                                              .round() >
-                                          0
-                                      ? Container(
-                                          height: 30,
-                                          width: 45,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                              color: const Color(0xFF1A8F00)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: Text(
-                                              "-${(((int.parse(data.regularPrice!) - data.price!) / int.parse(data.regularPrice!)) * 100).round()}%",
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        )
-                                      : const SizedBox(
-                                          height: 5,
-                                          width: 5,
-                                        )
-                                ])),
+                        Row(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      (((int.parse(data.regularPrice!) -
+                                                              data.price!) /
+                                                          int.parse(
+                                                              data.regularPrice!)) *
+                                                      100)
+                                                  .round() >
+                                              0
+                                          ? Container(
+                                              height: 30,
+                                              width: 45,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(2.0),
+                                                  color: const Color(0xFF1A8F00)),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(5),
+                                                child: Text(
+                                                  "-${(((int.parse(data.regularPrice!) - data.price!) / int.parse(data.regularPrice!)) * 100).round()}%",
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ),
+                                            )
+                                          : const SizedBox(
+                                              height: 5,
+                                              width: 5,
+                                            )
+                                    ])),
+SizedBox(width: 5,),
+                                  data.available=='1'?  Text('In Stock (${data.qty})',style: TextStyle(color: Colors.black),):Text('Out of Stock',style: TextStyle(color: Colors.red),),
+                          ],
+                        ),
                         // Row(
                         //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         //   children: [

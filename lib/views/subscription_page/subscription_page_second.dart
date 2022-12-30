@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:awesome_card/awesome_card.dart';
 import 'package:educanapp/models/sub_plans_second_model.dart';
 import 'package:educanapp/utils/constants_new.dart';
 import 'package:educanapp/utils/widgets/stickyLabel.dart';

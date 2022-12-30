@@ -5,7 +5,6 @@ import 'package:educanapp/views/home/components/wallet_auth_page.dart';
 import 'package:educanapp/views/pdf_view/pdfViewerPage.dart';
 import 'package:educanapp/views/pdf_viewer_page/pdf_viewer_page.dart';
 import 'package:educanapp/views/scholarship_page/scholarship_page.dart';
-import 'package:educanapp/views/subscription_page/subscription_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../edu_talk/pages/portfolio/portfolio_tutorials_sub_page.dart';

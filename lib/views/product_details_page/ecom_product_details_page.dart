@@ -124,38 +124,45 @@ class EcomProductDetailsView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  (((int.parse(data.prprice!) - data.pprice!) /
-                                      int.parse(data.prprice!)) *
-                                      100)
-                                      .round() >
-                                      0
-                                      ? Container(
-                                    height: 30,
-                                    width: 45,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(2.0),
-                                        color: const Color(0xFF1A8F00)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Text(
-                                        "-${(((int.parse(data.prprice!) - data.pprice!) / int.parse(data.prprice!)) * 100).round()}%",
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  )
-                                      : const SizedBox(
-                                    height: 5,
-                                    width: 5,
-                                  )
-                                ])),
+                        Row(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      (((int.parse(data.prprice!) - data.pprice!) /
+                                          int.parse(data.prprice!)) *
+                                          100)
+                                          .round() >
+                                          0
+                                          ? Container(
+                                        height: 30,
+                                        width: 45,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(2.0),
+                                            color: const Color(0xFF1A8F00)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "-${(((int.parse(data.prprice!) - data.pprice!) / int.parse(data.prprice!)) * 100).round()}%",
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      )
+                                          : const SizedBox(
+                                        height: 5,
+                                        width: 5,
+                                      )
+                                    ])),
+                                    SizedBox(width: 5,),
+                                  data.pavailability=='1'?  Text('In Stock (${data.qty})',style: TextStyle(color: Colors.black),):Text('Out of Stock',style: TextStyle(color: Colors.red),),
+                      
+                          ],
+                        ),
                         // Row(
                         //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         //   children: [
