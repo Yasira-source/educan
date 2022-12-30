@@ -46,7 +46,7 @@ class _BodyState extends State<Body> {
       widget.pic = (prefs.getString('pic') ?? '');
       refs = (prefs.getString('refs') ?? '');
     });
-    print(widget.uid);
+  
     getMembers((prefs.getString('uid') ?? ''));
   }
 

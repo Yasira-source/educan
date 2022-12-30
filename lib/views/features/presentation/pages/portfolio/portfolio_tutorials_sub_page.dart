@@ -8,17 +8,26 @@ import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../../../../../controller/sign_in_controller.dart';
 import '../../../../../models/all_topic_videos.dart';
 import '../../../../success/subs_check_page.dart';
 
 class PortfolioTutorialsSubPage extends StatelessWidget {
-   PortfolioTutorialsSubPage({Key? key,required this.topid,required this.topname,required this.limit,required this.plan,required this.cla}) : super(key: key);
+  PortfolioTutorialsSubPage(
+      {Key? key,
+      required this.topid,
+      required this.topname,
+      required this.limit,
+      required this.plan,
+      required this.cla,
+      required this.uid})
+      : super(key: key);
   String topid;
   String topname;
   String limit;
   int plan;
   String cla;
-
+  String uid;
 
   Future<List<TopicsVideosData>> fetchTopicVideos(String tag) async {
     final response = await http.get(Uri.parse(
@@ -32,6 +41,9 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
     // }
   }
 
+  final controller = SignInController();
+  var result;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,32 +55,32 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
             // Add the app bar to the CustomScrollView.
 
             SliverAppBar(
-          snap: false,
-          pinned: true,
-          floating: false,
-          flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text("Educan Lessons\n$topname",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                  ) //TextStyle
-              ), //Text//Images.network
-          ), //FlexibleSpaceBar
-          expandedHeight: 50,
-          backgroundColor: const Color(0xFF1A8F00),
-           //IconButton
-          // actions: <Widget>[
-          //   IconButton(
-          //     icon: Icon(Icons.shopping_cart),
-          //     tooltip: 'Shopping Icon',
-          //     onPressed: () {},
-          //   ), //IconButton
-          // //IconButton
-          // ], //<Widget>[]
-        ), //SliverAppBar
+              snap: false,
+              pinned: true,
+              floating: false,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                title: Text("Educan Lessons\n$topname",
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ) //TextStyle
+                    ), //Text//Images.network
+              ), //FlexibleSpaceBar
+              expandedHeight: 50,
+              backgroundColor: const Color(0xFF1A8F00),
+              //IconButton
+              // actions: <Widget>[
+              //   IconButton(
+              //     icon: Icon(Icons.shopping_cart),
+              //     tooltip: 'Shopping Icon',
+              //     onPressed: () {},
+              //   ), //IconButton
+              // //IconButton
+              // ], //<Widget>[]
+            ), //SliverAppBar
 
             _buildSliverContent(),
           ],
@@ -77,8 +89,8 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
     );
   }
 
-    _buildSliverContent() {
-     return FutureBuilder<List<TopicsVideosData>>(
+  _buildSliverContent() {
+    return FutureBuilder<List<TopicsVideosData>>(
         future: fetchTopicVideos(topid),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
@@ -87,28 +99,36 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
               itemExtent: 100,
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return _buildListItem(context, data![index],limit,plan);
+                  return _buildListItem(context, data![index], limit, plan);
                 },
                 childCount: data!.length,
               ),
             );
           } else {
-            return  const SliverFillRemaining(
-              hasScrollBody: false,
-              child: Center(
-                child: CircularProgressIndicator(),
-              )
-            );
+            return const SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ));
           }
         });
   }
 
-  Widget _buildListItem(BuildContext context,  TopicsVideosData tutorial,String limit,int plan) {
+  Widget _buildListItem(
+      BuildContext context, TopicsVideosData tutorial, String limit, int plan) {
     return Stack(
       children: <Widget>[
         _buildCardView(tutorial.title!, tutorial.logo!),
         _buildRippleEffectNavigation(
-            context, tutorial.details!, tutorial.logo!, tutorial.link!, tutorial.title!,limit,plan,tutorial.forsubscribe!,cla),
+            context,
+            tutorial.details!,
+            tutorial.logo!,
+            tutorial.link!,
+            tutorial.title!,
+            limit,
+            plan,
+            tutorial.forsubscribe!,
+            cla,tutorial.charge!),
       ],
     );
   }
@@ -136,7 +156,6 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
           desc,
           style: const TextStyle(
             fontSize: 15,
-
           ),
         ),
       ),
@@ -157,53 +176,50 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
   CachedNetworkImage _buildHeroWidgetContent(String imageUrl) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
-      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+      placeholder: (context, url) =>
+          const Center(child: CircularProgressIndicator()),
     );
   }
 
   Widget _buildRippleEffectNavigation(
-      BuildContext context, String desc, String imageUrl, String videoUrl,String tit,String limit,int plan,String fors,String cla) {
+      BuildContext context,
+      String desc,
+      String imageUrl,
+      String videoUrl,
+      String tit,
+      String limit,
+      int plan,
+      String fors,
+      String cla,
+      String chargeAmount) {
     return Positioned.fill(
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           splashColor: const Color(0xFF1A8F00).withOpacity(0.5),
           highlightColor: const Color(0xFF1A8F00).withOpacity(0.5),
-          onTap: () {
-            var cl;
-            if(fors=='T') {
-              if (plan == 1) {
-                if(int.parse(cla)<=7 && int.parse(cla)>0){
-                  cl ='3';
-                }else {
-                  cl = '2';
-                }
-                if (limit == '1' || limit==cl) {
+          onTap: () async {
+            if (int.parse(chargeAmount) > 0) {
+              if (plan >= int.parse(chargeAmount)) {
+                //  collect the charge amount here
+                result = await controller.chargeWallet(
+                    uid, chargeAmount, 'Lesson Charge');
+                // print(result);
+                var got = json.decode(result);
+                // print(got['message']);
+                if (got['success']) {
                   Navigator.of(context).push(
                     _createTutorialDetailRoute(desc, imageUrl, videoUrl, tit),
                   );
-                }else{
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SubscribeMessage(
-
-
-
-                      )));
+                } else {
+                  _showMyDialog(context);
                 }
-              }else{
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SubscribeMessage(
-
-
-
-                    )));
               }
-            }else {
-              Navigator.of(context).push(
-                _createTutorialDetailRoute(desc, imageUrl, videoUrl, tit),
-              );
+            }else{
+                Navigator.of(context).push(
+                    _createTutorialDetailRoute(desc, imageUrl, videoUrl, tit),
+                  );
             }
-
           },
 
           //* FilePicker to get video path from phone storage
@@ -222,7 +238,7 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
     );
   }
 
-  PageRoute<Object> _createTutorialDetailRoute(desc, imageUrl, videoUrl,tit) {
+  PageRoute<Object> _createTutorialDetailRoute(desc, imageUrl, videoUrl, tit) {
     return PageRouteBuilder(
       transitionDuration: const Duration(seconds: 1),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -243,8 +259,36 @@ class PortfolioTutorialsSubPage extends StatelessWidget {
         heroTag: imageUrl,
         desc: desc,
         videoUrl: videoUrl,
-            title: tit,
+        title: tit,
       ),
+    );
+  }
+
+  Future<void> _showMyDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ooops!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Something happened '),
+                Text('Click again'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

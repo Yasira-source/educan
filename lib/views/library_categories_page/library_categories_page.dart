@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/library_categories.dart';
 import '../library_contents_page/library_conents_page.dart';
@@ -37,6 +38,20 @@ Future<List<LibraryCategoriesData>> fetchCategories() async {
 }
 // final orientation = MediaQuery.of(context).orientation;
 class _LibraryCategoriesPageState extends State<LibraryCategoriesPage> {
+
+  String uid = '';
+   _loadCounterx() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+    uid = (prefs.getString('uid') ?? '');
+   
+    });
+   
+  }
+   @override
+  void initState() {
+    _loadCounterx();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +121,8 @@ class _LibraryCategoriesPageState extends State<LibraryCategoriesPage> {
                                       clas: widget.clas.toString(),
                                       code: data[i].code!,
                                       limit:widget.limit,
-                                      plan:widget.plan
+                                      plan:widget.plan,
+                                      uid: uid,
                                     )));
                               },
                               child: Card(

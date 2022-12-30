@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/all_topics.dart';
 import '../features/presentation/pages/portfolio/portfolio_tutorials_sub_page.dart';
@@ -34,6 +35,20 @@ Future<List<TopicsData>> fetchTopics(String tag,String subj) async {
 }
 
 class _TopicsPageState extends State<TopicsPage> {
+
+  String uid = '';
+   _loadCounterx() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+    uid = (prefs.getString('uid') ?? '');
+   
+    });
+   
+  }
+   @override
+  void initState() {
+    _loadCounterx();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +149,7 @@ class _TopicsPageState extends State<TopicsPage> {
                                 //     ]),
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PortfolioTutorialsSubPage(topid: data[index].id!,topname: data[index].name!,limit:widget.limit,plan:widget.plan,cla:widget.catid)));
+                                      builder: (context) => PortfolioTutorialsSubPage(topid: data[index].id!,topname: data[index].name!,limit:widget.limit,plan:widget.plan,cla:widget.catid,uid: uid,)));
 
                                 },
                               )

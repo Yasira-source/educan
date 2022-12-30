@@ -199,7 +199,7 @@ const SizedBox(height: 20,),
                         return SizedBox(
                           height: 500,
                           child: ListView.builder(
-                            itemCount: 5,
+                            itemCount: data.length,
                             itemBuilder: (context, position) {
                               return transactionItem(data: data[position]);
                             },

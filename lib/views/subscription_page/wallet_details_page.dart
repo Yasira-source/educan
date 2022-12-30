@@ -78,7 +78,7 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
       backgroundColor: const Color.fromARGB(255, 225, 247, 225),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A8F00),
-        elevation: 0,
+        // elevation: 0,
         title: const Text("Wallet Details"),
         actions: [
           Stack(
@@ -326,6 +326,8 @@ class _SubscriptionDetails2State extends State<SubscriptionDetails2> {
             const Divider(),
             const SizedBox(height: 15.0),
             uid != '' ? LatestTransactions(uid) : Container(),
+            const SizedBox(height: 15.0),
+
           ],
         ),
       ),

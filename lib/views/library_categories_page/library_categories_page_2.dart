@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
 import '../../models/library_categories.dart';
@@ -41,6 +42,19 @@ Future<List<LibraryCategoriesData>> fetchCategories() async {
 class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
+String uid = '';
+   _loadCounterx() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+    uid = (prefs.getString('uid') ?? '');
+   
+    });
+   
+  }
+   @override
+  void initState() {
+    _loadCounterx();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +144,8 @@ class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
                                 clas: widget.clas.toString(),
                                 code: data[i].code!,
                                 limit:widget.limit,
-                                plan:widget.plan
+                                plan:widget.plan,
+                                uid: uid,
                               )));
                         },
                         child: Card(

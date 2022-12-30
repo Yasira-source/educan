@@ -20,5 +20,18 @@ class SignInController extends GetxController with BaseController {
     return response;
   }
 
+   chargeWallet(String uid, String charge,String desc) async {
+    showLoading('Processing ...');
+    var response = await BaseClient()
+        .get('https://educanug.com/educan_new/educan/api',
+            '/user/charge_wallet.php?uid=$uid&charge=$charge&desc=$desc')
+        .catchError(handleError);
+    if (response == null) return;
+    hideLoading();
+    // print(response);
+  
+    return response;
+  }
+
 
 }

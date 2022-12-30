@@ -48,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: const Color(0xFFeff5f3),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-         elevation: 0,
+        //  elevation: 0,
         backgroundColor: const Color(0xFF1A8F00),
         title:  const Text(
           "Account",

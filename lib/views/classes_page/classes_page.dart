@@ -27,17 +27,19 @@ class _ClassesPageState extends State<ClassesPage> {
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
 String uid ='';
+
+  List balance = [];
   // late Future<SubsData> futureAlbum;
 
-  Future<List<SubsData>> fetchSubStatus(String uidd) async {
-    final response = await http
-        .get(Uri.parse('https://educanug.com/educan_new/educan/api/user/check_subs.php?class=$uidd'));
-
-// print(response.body);
-//     return SubsData.fromJson(jsonDecode(response.body));
-    List jsonResponse = json.decode(response.body);
-    // print(jsonResponse);
-    return jsonResponse.map((data) => SubsData.fromJson(data)).toList();
+  Future<String> fetchSubStatus(String tag) async {
+    var res = await http.get(Uri.parse(
+        'https://educanug.com/educan_new/educan/api/user/get_wallet_balance.php?user=$tag'));
+    var resBody = json.decode(res.body);
+     setState(() {
+      balance = resBody;
+    
+    });
+    return '';
   }
   _loadCounterx() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -114,11 +116,11 @@ String uid ='';
         ],
       ),
       body: SingleChildScrollView(
-        child:FutureBuilder<List<SubsData>>(
+        child:FutureBuilder<String>(
     future: fetchSubStatus(uid),
     builder: (context, snapshot) {
     if (snapshot.hasData) {
-      List<SubsData>? data = snapshot.data;
+      // List<SubsData>? data = snapshot.data;
       return Column(
         children: [
           const SizedBox(height:20),
@@ -149,7 +151,7 @@ String uid ='';
                   // 5,
                       (index) {
 
-                    return _buildCard2( primary[index],primaryWords[index],primaryCount[index],context,data![0].limit!,data[0].plan!);
+                    return _buildCard2( primary[index],primaryWords[index],primaryCount[index],context, balance[0]['balance'], int.parse( balance[0]['balance']));
                     // return _buildCard2( "assets/images/", context);
 
                     // return SizedBox
@@ -188,7 +190,7 @@ String uid ='';
                   // 5,
                       (index) {
 
-                    return _buildCard2( olevel[index],olevelWords[index],olevelCount[index],context,data![0].limit!,data[0].plan!);
+                    return _buildCard2( olevel[index],olevelWords[index],olevelCount[index],context, balance[0]['balance'], int.parse( balance[0]['balance']));
                     // return _buildCard2( "assets/images/", context);
 
                     // return SizedBox
@@ -228,7 +230,7 @@ String uid ='';
                   // 5,
                       (index) {
 
-                    return _buildCard2( olevel[index],olevelWords[index],olevelnewCount[index],context,data![0].limit!,data[0].plan!);
+                    return _buildCard2( olevel[index],olevelWords[index],olevelnewCount[index],context, balance[0]['balance'], int.parse( balance[0]['balance']));
                     // return _buildCard2( "assets/images/", context);
 
                     // return SizedBox
@@ -268,7 +270,7 @@ String uid ='';
                   // 5,
                       (index) {
 
-                    return _buildCard2( alevel[index],alevelWords[index],alevelCount[index],context,data![0].limit!,data[0].plan!);
+                    return _buildCard2( alevel[index],alevelWords[index],alevelCount[index],context, balance[0]['balance'], int.parse( balance[0]['balance']));
                     // return _buildCard2( "assets/images/", context);
 
                     // return SizedBox
