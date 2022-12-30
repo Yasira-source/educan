@@ -4,6 +4,7 @@ import 'package:educanapp/views/pdf_viewer_page/downloading_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'package:path_provider/path_provider.dart';
@@ -76,6 +77,20 @@ class _PDFDocState extends State<PDFDoc> {
     secureScreen();
   }
 
+  void sharePressed() {
+    String message =
+        'Check Out ${widget.title} on the Educan App Library Content\nhttps://play.google.com/store/apps/details?id=com.educan.educanapp&hl=en&gl=US';
+
+        // Share.shareFiles(['${directory.path}assets/images/ic_logo.png'], text: message);
+    Share.share(message);
+
+    // optional subject that will be used when sharing via email
+    // Share.share(message,subject:'Sharing a Resource from the Best App for all Students');
+
+    // share a file
+    // Share.shareFiles(['${directory.path}/images.jpg'],text:widget.title);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,9 +104,11 @@ class _PDFDocState extends State<PDFDoc> {
         ),
         actions: [
           // IconButton(onPressed: () async {}, icon: const Icon(Icons.download)),
-          IconButton(onPressed: () {
-            
-          }, icon: const Icon(Icons.share)),
+          IconButton(
+              onPressed: () {
+                sharePressed();
+              },
+              icon: const Icon(Icons.share)),
         ],
       ),
       body: SfPdfViewer.network(widget.link),
@@ -105,7 +122,7 @@ class _PDFDocState extends State<PDFDoc> {
               builder: (context) => DownloadingDialog(
                 imgUrl: widget.link,
                 name: widget.title,
-                path:_localPath ,
+                path: _localPath,
               ),
             );
           }
