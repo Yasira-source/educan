@@ -41,20 +41,15 @@ class SignUpController extends GetxController with BaseController {
     return response;
   }
 
- updateData(String fname, String mname,String lname, String mobile,String whats,String email,String prof,String nation,String address,String dob,String reason,String password,String uid) async {
+ updateData(String fname, String mname,String lname, String mobile,String email,String address,String password,String uid) async {
     var request = {
       'fname': fname,
       'mname': mname,
       'lname': lname,
       'mobile': mobile,
-      'whats': whats,
       'email': email,
-      'prof': prof,
-      'nation': nation,
       'address': address,
-      'dob': dob,
        'id': uid,
-        'reason': reason,
          'password': password,
     };
     showLoading('Updating your account...');

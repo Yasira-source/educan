@@ -81,6 +81,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
         ],
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+
         child: Column(
           children: [
             // _buildFilterWidgets(screenSize),
@@ -106,7 +108,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
               mainAxisSpacing: 4.0,
               shrinkWrap: true,
               crossAxisSpacing: 4.0,
-
+childAspectRatio: 0.53,
               scrollDirection: Axis.vertical,
               physics: const ClampingScrollPhysics(),
               children: data!.map((ProductsData item) {

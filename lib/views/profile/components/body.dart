@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:educanapp/views/home/components/wallet_auth_page.dart';
+import 'package:educanapp/views/products_list_page/product_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -136,7 +138,7 @@ class _BodyState extends State<Body> {
               icon: "assets/icons/1017280091582962144.svg",
               press: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SubscriptionDetails()));
+                    builder: (context) => const WalletAuth()));
               },
             ),
             ProfileMenu(
@@ -150,10 +152,7 @@ class _BodyState extends State<Body> {
               text: "Inbox",
               icon: "assets/icons/Log out.svg",
               press: () async {
-                SharedPreferences preferences =
-                    await SharedPreferences.getInstance();
-                await preferences.clear();
-                Get.off(() => const SignInScreen());
+              
               },
             ),
               ],
@@ -175,15 +174,15 @@ class _BodyState extends State<Body> {
             color: Colors.white,
             child: Column(
               children: [
-  ProfileMenu(
-              text: "Address Book",
-              icon: "assets/icons/receipt.svg",
-              press: () {
+  // ProfileMenu(
+  //             text: "Address Book",
+  //             icon: "assets/icons/receipt.svg",
+  //             press: () {
                
-                // Navigator.of(context).push(
-                //     MaterialPageRoute(builder: (context) => updateAccount(uid: uid,)))
-              },
-            ),
+  //               // Navigator.of(context).push(
+  //               //     MaterialPageRoute(builder: (context) => updateAccount(uid: uid,)))
+  //             },
+  //           ),
             ProfileMenu(
               text: "Account Management",
               icon: "assets/icons/User.svg",
@@ -195,13 +194,9 @@ class _BodyState extends State<Body> {
                       fnames: members[0]['fname'],
                       names: members[0]['lname'],
                       mobile: members[0]['mobile'],
-                      prof: members[0]['prof'],
-                      dob: members[0]['dob'],
-                      whatsapp: members[0]['phone'],
-                      reason: members[0]['reason'],
-                      nation: members[0]['nation'],
+                    
                       othernames: members[0]['mname'],
-                      phoneNum: members[0]['other_phone'],
+                    
                       uid: widget.uid,
                       profPic: members[0]['prof_pic'],
                       passwordx: members[0]['pass'],

@@ -1,5 +1,7 @@
 
+import 'package:educanapp/views/subscription_page/enter_topup_amount.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils/constants_new.dart';
 import '../../utils/defaultButton.dart';
@@ -28,15 +30,11 @@ class _SubscribeMessageState extends State<SubscribeMessage> {
             emptyMsg: 'Sorry !!',
           ),
           const SubTitle(
-            subTitleText: "Your Current Subscription Plan can not enable you to access this file",
+            subTitleText: "Your Current Wallet Balance is not enough to access this file",
           ),
           DefaultButton(
-            btnText: 'Subscribe Now',
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>  HomeScreen(),
-              ),
-            ),
+            btnText: 'Deposit Money Now',
+            onPressed: () => Get.off(()=>EnterDonationAmount2(id: '1')),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:educanapp/models/all_products_model.dart';
 import 'package:educanapp/views/product_details_page/ecom_product_details_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +25,8 @@ class ProductsListItem2 extends StatelessWidget {
     final cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
-    return _buildCardy(data, code, added, isFav, context);
+    return  Obx(
+                    () => _buildCardy(data, code, added, isFav, context));
     //     _buildProductItemCard(context),
     //   ],
     // );
@@ -156,7 +158,46 @@ class ProductsListItem2 extends StatelessWidget {
                                 fontSize: 12.0)),
                       ),
                     
-                      const SizedBox(height: 5,),
+                      Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 2, right: 2),
+                              child: Text(
+                                  'UGX ${f.format(int.parse(data.prprice!))}',
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                      // fontFamily: 'Varela',
+                                      decoration: TextDecoration.lineThrough,
+                                      fontSize: 13.0)),
+                            ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 2, right: 2),
+                        child: RatingBar.builder(
+                          initialRating: double.parse(data.prating!),
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemSize: 20,
+                          itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          onRatingUpdate: (rating) {
+                            // print(rating);
+                          },
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 10,
+                      ),
                      cartController.checkProductExistsx(data)?
                         SizedBox(
                           height: 30,
@@ -343,20 +384,7 @@ class ProductsListItem2 extends StatelessWidget {
                                       // fontFamily: 'Varela',
                                       fontSize: 15.0)),
                             ),
-                            // Padding(
-                            //   padding:
-                            //       const EdgeInsets.only(left: 2, right: 2),
-                            //   child: Text(
-                            //       'UGX ${f.format(int.parse(data.regularPrice!))}',
-                            //       textAlign: TextAlign.start,
-                            //       overflow: TextOverflow.ellipsis,
-                            //       style: const TextStyle(
-                            //           color: Colors.grey,
-                            //           fontWeight: FontWeight.bold,
-                            //           // fontFamily: 'Varela',
-                            //           decoration: TextDecoration.lineThrough,
-                            //           fontSize: 13.0)),
-                            // ),
+                           
                           ],
                         );
                       }),

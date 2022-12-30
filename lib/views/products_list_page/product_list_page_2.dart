@@ -50,9 +50,11 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
         elevation: 0,
         title: const Text("Bookshop"),
         actions: [
-          IconButton(onPressed: () {
-            showSearch(context: context, delegate: EducanSearch());
-          }, icon: const Icon(Icons.search_outlined)),
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: EducanSearch());
+              },
+              icon: const Icon(Icons.search_outlined)),
           Stack(
             children: [
               IconButton(
@@ -66,7 +68,7 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
                     top: 0,
                     right: 6,
                     child: cartController.products.length +
-                        cartController.productsx.length ==
+                                cartController.productsx.length ==
                             0
                         ? Container()
                         : Container(
@@ -84,11 +86,13 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
         ],
       ),
       body: SingleChildScrollView(
-        // scrollDirection: Axis.vertical,
+        scrollDirection: Axis.vertical,
         child: Column(
           children: [
             // _buildFilterWidgets(screenSize),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             _buildProductsListPage(),
           ],
         ),
@@ -110,7 +114,8 @@ class _ProductsListPage2State extends State<ProductsListPage2> {
               mainAxisSpacing: 4.0,
               shrinkWrap: true,
               crossAxisSpacing: 4.0,
-childAspectRatio: 0.68,
+
+              childAspectRatio: 0.53,
               scrollDirection: Axis.vertical,
               physics: const ClampingScrollPhysics(),
               children: data!.map((BookshopData item) {

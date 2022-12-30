@@ -29,14 +29,10 @@ class updateAccount2 extends StatefulWidget {
       required this.names,
       required this.othernames,
       required this.fnames,
-      required this.dob,
-      required this.prof,
-      required this.nation,
+  
       required this.address,
       required this.mobile,
-      required this.reason,
-      required this.phoneNum,
-      required this.whatsapp,
+  
       required this.uid,
       required this.profPic,
       required this.passwordx})
@@ -47,14 +43,10 @@ class updateAccount2 extends StatefulWidget {
   String names;
   String othernames;
   String fnames;
-  String dob;
-  String prof;
-  String nation;
+ 
   String address;
   String mobile;
-  String reason;
-  String phoneNum;
-  String whatsapp;
+ 
   String uid;
   String profPic;
   String passwordx;
@@ -285,14 +277,9 @@ if(res.statusCode==200){
                           widget.fnames,
                           widget.names,
                           widget.othernames,
-                          widget.phoneNum,
-                          widget.whatsapp,
+                          widget.mobile,
                           widget.email,
-                          widget.prof,
-                          widget.nation,
                           widget.address,
-                          widget.dob,
-                          widget.reason,
                           widget.password,
                           widget.uid);
                       // print(result);
