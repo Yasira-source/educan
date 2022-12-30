@@ -16,13 +16,19 @@ import '../topics_page/topics_page.dart';
 
 class SubjectsPage extends StatefulWidget {
   SubjectsPage(
-      {Key? key, required this.title, required this.catid, required this.subid,required this.limit,required this.plan})
+      {Key? key,
+      required this.title,
+      required this.catid,
+      required this.subid,
+      required this.limit,
+      required this.plan,required this.package})
       : super(key: key);
   String title;
   int catid;
   int subid;
   String limit;
   int plan;
+  int package;
 
   @override
   State<SubjectsPage> createState() => _SubjectsPageState();
@@ -41,7 +47,6 @@ Future<List<SubjectsData>> fetchClass(String tag) async {
 }
 
 class _SubjectsPageState extends State<SubjectsPage> {
-
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
   @override
@@ -50,7 +55,6 @@ class _SubjectsPageState extends State<SubjectsPage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A8F00),
         elevation: 0,
-
         title: Text(widget.title),
         actions: [
           // IconButton(
@@ -62,34 +66,29 @@ class _SubjectsPageState extends State<SubjectsPage> {
           // ),
           Stack(
             children: [
-              IconButton(onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CartScreen(
-                    )));
-              }, icon: const Icon(Icons.shopping_cart_outlined)),
-              Obx(()=>
-                  Positioned(
-                      top: 0,
-                      right: 6,
-
-                      child:cartController.products.length+cartController.productsx.length==0?
-                      Container()
-                          :
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                            color: Colors.red,
-
-                            shape: BoxShape.circle),
-                        child:
-                        Text(
-                          '${cartController.products.length+cartController.productsx.length}',
-                          style: const TextStyle(fontSize: 12),
-                        ),
-
-                      )
-
-                  ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CartScreen()));
+                  },
+                  icon: const Icon(Icons.shopping_cart_outlined)),
+              Obx(
+                () => Positioned(
+                    top: 0,
+                    right: 6,
+                    child: cartController.products.length +
+                                cartController.productsx.length ==
+                            0
+                        ? Container()
+                        : Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: const BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            child: Text(
+                              '${cartController.products.length + cartController.productsx.length}',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          )),
               ),
             ],
           )
@@ -159,41 +158,38 @@ class _SubjectsPageState extends State<SubjectsPage> {
                                 //library
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => LibraryCategoriesPage(
-
                                           subid: data[index].id!,
                                           clas: widget.subid,
-                                      limit:widget.limit,
-                                      plan:widget.plan
+                                          limit: widget.limit,
+                                          plan: widget.plan,
+                                          package: widget.package,
                                         )));
                               } else if (widget.catid == 1) {
                                 //lessons
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => TopicsPage(
-                                          title: data[index].name!,
-                                          catid: data[index].id!,
-                                          subid: widget.subid,
-                                        limit:widget.limit,
-                                        plan:widget.plan
-                                        )));
+                                        title: data[index].name!,
+                                        catid: data[index].id!,
+                                        subid: widget.subid,
+                                        limit: widget.limit,
+                                        plan: widget.plan,package: widget.package,)));
                               } else if (widget.catid == 3) {
                                 //teacher resources
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => LibraryCategoriesPage2(
-
-                                      subid: data[index].id!,
-                                      clas: widget.subid,
-                                        limit:widget.limit,
-                                        plan:widget.plan
-                                    )));
-                              }else if (widget.catid == 4) {
+                                    builder: (context) =>
+                                        LibraryCategoriesPage2(
+                                            subid: data[index].id!,
+                                            clas: widget.subid,
+                                            limit: widget.limit,
+                                            plan: widget.plan,package: widget.package,)));
+                              } else if (widget.catid == 4) {
                                 //teacher resources
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ConsultantsPage(
-                                      title: data[index].name!,
-                                      clas: widget.subid.toString(),
-                                      subid: data[index].id!,
-
-                                    )));
+                                          title: data[index].name!,
+                                          clas: widget.subid.toString(),
+                                          subid: data[index].id!,
+                                        )));
                               }
                             },
                           ));

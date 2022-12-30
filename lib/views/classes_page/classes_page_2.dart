@@ -12,27 +12,28 @@ import '../../controller/cart_controller.dart';
 import '../../models/check_subs.dart';
 import '../cart/cart_screen.dart';
 import 'package:get/get.dart';
+
 class ClassesPageSecond extends StatefulWidget {
-  ClassesPageSecond({Key? key, required this.title, required this.catid})
+  ClassesPageSecond({Key? key, required this.title, required this.catid,required this.package})
       : super(key: key);
   String title;
   int catid;
+  int package;
 
   @override
   State<ClassesPageSecond> createState() => _ClassesPageSecondState();
 }
 
 class _ClassesPageSecondState extends State<ClassesPageSecond> {
-
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
 
-  String uid ='';
+  String uid = '';
   // late Future<SubsData> futureAlbum;
 
   Future<List<SubsData>> fetchSubStatus(String uidd) async {
-    final response = await http
-        .get(Uri.parse('https://educanug.com/educan_new/educan/api/user/check_subs.php?class=$uidd'));
+    final response = await http.get(Uri.parse(
+        'https://educanug.com/educan_new/educan/api/user/check_subs.php?class=$uidd'));
 
 // print(response.body);
 //     return SubsData.fromJson(jsonDecode(response.body));
@@ -45,9 +46,9 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       uid = (prefs.getString('uid') ?? '');
-
     });
   }
+
   void secureScreen() async {
     await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
     await FlutterWindowManager.clearFlags(
@@ -62,13 +63,13 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
     _loadCounterx();
     // futureAlbum = fetchSubStatus(uid);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A8F00),
         elevation: 0,
-
         title: Text(widget.title),
         actions: [
           // IconButton(
@@ -80,34 +81,29 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
           // ),
           Stack(
             children: [
-              IconButton(onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CartScreen(
-                    )));
-              }, icon: const Icon(Icons.shopping_cart_outlined)),
-              Obx(()=>
-                  Positioned(
-                      top: 0,
-                      right: 6,
-
-                      child:cartController.products.length+cartController.productsx.length==0?
-                      Container()
-                          :
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                            color: Colors.red,
-
-                            shape: BoxShape.circle),
-                        child:
-                        Text(
-                          '${cartController.products.length+cartController.productsx.length}',
-                          style: const TextStyle(fontSize: 12),
-                        ),
-
-                      )
-
-                  ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CartScreen()));
+                  },
+                  icon: const Icon(Icons.shopping_cart_outlined)),
+              Obx(
+                () => Positioned(
+                    top: 0,
+                    right: 6,
+                    child: cartController.products.length +
+                                cartController.productsx.length ==
+                            0
+                        ? Container()
+                        : Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: const BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            child: Text(
+                              '${cartController.products.length + cartController.productsx.length}',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          )),
               ),
             ],
           )
@@ -115,155 +111,179 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
       ),
       body: SingleChildScrollView(
         child: FutureBuilder<List<SubsData>>(
-    future: fetchSubStatus(uid),
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        List<SubsData>? data = snapshot.data;
-        return  Column(
-          children: [
-            const SizedBox(height:20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  // SizedBox(width: 0.01,),
-                  Text(
-                    "Primary Level",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Icon(Icons.arrow_forward_ios,color: Color(0xFF1A8F00),),
-                ],
-              ),
-            ),
-            SizedBox(height: 15),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ...List.generate(
-                    primary.length,
-                    // 5,
-                        (index) {
+            future: fetchSubStatus(uid),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<SubsData>? data = snapshot.data;
+                return Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          // SizedBox(width: 0.01,),
+                          Text(
+                            "Primary Level",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xFF1A8F00),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ...List.generate(
+                            primary.length,
+                            // 5,
+                            (index) {
+                              return _buildCard2(
+                                  primary[index],
+                                  primaryWords[index],
+                                  primaryCount[index],
+                                  context,
+                                  data![0].limit!,
+                                  data[0].plan!);
+                              // return _buildCard2( "assets/images/", context);
 
-                      return _buildCard2( primary[index],primaryWords[index],primaryCount[index],context,data![0].limit!,data[0].plan!);
-                      // return _buildCard2( "assets/images/", context);
+                              // return SizedBox
+                              //     .shrink(); // here by default width and height is 0
+                            },
+                          ),
+                          SizedBox(width: 20),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // SizedBox(width: 0.01,),
+                          Text(
+                            "Ordinary Level ",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xFF1A8F00),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ...List.generate(
+                            olevel.length,
+                            // 5,
+                            (index) {
+                              return _buildCard2(
+                                  olevel[index],
+                                  olevelWords[index],
+                                  olevelCount[index],
+                                  context,
+                                  data![0].limit!,
+                                  data[0].plan!);
+                              // return _buildCard2( "assets/images/", context);
 
-                      // return SizedBox
-                      //     .shrink(); // here by default width and height is 0
-                    },
-                  ),
-                  SizedBox(width: 20),
-                ],
-              ),
-            ),
+                              // return SizedBox
+                              //     .shrink(); // here by default width and height is 0
+                            },
+                          ),
+                          SizedBox(width: 20),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // SizedBox(width: 0.01,),
+                          Text(
+                            "Advanced Level",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xFF1A8F00),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ...List.generate(
+                            alevel.length,
+                            // 5,
+                            (index) {
+                              return _buildCard2(
+                                  alevel[index],
+                                  alevelWords[index],
+                                  alevelCount[index],
+                                  context,
+                                  data![0].limit!,
+                                  data[0].plan!);
+                              // return _buildCard2( "assets/images/", context);
 
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // SizedBox(width: 0.01,),
-                  Text(
-                    "Ordinary Level ",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Icon(Icons.arrow_forward_ios,color: Color(0xFF1A8F00),),
-                ],
-              ),
-            ),
-            SizedBox(height: 15),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ...List.generate(
-                    olevel.length,
-                    // 5,
-                        (index) {
-
-                      return _buildCard2( olevel[index],olevelWords[index],olevelCount[index],context,data![0].limit!,data[0].plan!);
-                      // return _buildCard2( "assets/images/", context);
-
-                      // return SizedBox
-                      //     .shrink(); // here by default width and height is 0
-                    },
-                  ),
-                  SizedBox(width: 20),
-                ],
-              ),
-            ),
-
-
-
-
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // SizedBox(width: 0.01,),
-                  Text(
-                    "Advanced Level",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Icon(Icons.arrow_forward_ios,color: Color(0xFF1A8F00),),
-                ],
-              ),
-            ),
-            SizedBox(height: 15),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...List.generate(
-                    alevel.length,
-                    // 5,
-                        (index) {
-
-                      return _buildCard2( alevel[index],alevelWords[index],alevelCount[index],context,data![0].limit!,data[0].plan!);
-                      // return _buildCard2( "assets/images/", context);
-
-                      // return SizedBox
-                      //     .shrink(); // here by default width and height is 0
-                    },
-                  ),
-                  SizedBox(width: 20),
-                ],
-              ),
-            )
-          ],
-        );
-      }else{
-        // By default, show a loading spinner.
-        return  Center(child: const CircularProgressIndicator());
-      }
-    }
-        ),
-
-
+                              // return SizedBox
+                              //     .shrink(); // here by default width and height is 0
+                            },
+                          ),
+                          SizedBox(width: 20),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              } else {
+                // By default, show a loading spinner.
+                return Center(child: const CircularProgressIndicator());
+              }
+            }),
       ),
     );
   }
 
-  Widget _buildCard2(String imgPath,String wor,int cla, context,String limit,int plan) {
+  Widget _buildCard2(
+      String imgPath, String wor, int cla, context, String limit, int plan) {
     return Padding(
-        padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
+        padding:
+            const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
         child: InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SubjectsPage(title: wor, catid: widget.catid,subid: cla,limit: limit,plan: plan,)));
+                  builder: (context) => SubjectsPage(
+                        title: wor,
+                        catid: widget.catid,
+                        subid: cla,
+                        limit: limit,
+                        plan: plan,
+                        package: widget.package,
+                      )));
             },
             child: Container(
                 width: 90,
@@ -291,14 +311,12 @@ class _ClassesPageSecondState extends State<ClassesPageSecond> {
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: AssetImage(imgPath),
-                                            fit: BoxFit.cover)
-                                    ))),
+                                            fit: BoxFit.cover)))),
                           ),
                         ],
                       ),
-                      SizedBox(height:10),
+                      SizedBox(height: 10),
                       Text(wor),
-
                     ]))));
   }
 }

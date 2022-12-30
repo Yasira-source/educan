@@ -13,10 +13,11 @@ import '../cart/cart_screen.dart';
 
 import 'package:http/http.dart' as http;
 class ClassesPage extends StatefulWidget {
-  ClassesPage({Key? key, required this.title, required this.catid})
+  ClassesPage({Key? key, required this.title, required this.catid,required this.package})
       : super(key: key);
   String title;
   int catid;
+  int package;
 
   @override
   State<ClassesPage> createState() => _ClassesPageState();
@@ -302,7 +303,7 @@ String uid ='';
         child: InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SubjectsPage(title: wor, catid: widget.catid,subid: cla,limit: limit,plan: plan,)));
+                  builder: (context) => SubjectsPage(title: wor, catid: widget.catid,subid: cla,limit: limit,plan: plan,package: widget.package,)));
             },
             child: Container(
                 width: 90,

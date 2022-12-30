@@ -13,13 +13,18 @@ import '../topics_page/topics_page.dart';
 
 class LibraryCategoriesPage extends StatefulWidget {
   LibraryCategoriesPage(
-      {Key? key, required this.clas, required this.subid,required this.limit,required this.plan})
+      {Key? key,
+      required this.clas,
+      required this.subid,
+      required this.limit,
+      required this.plan,required this.package})
       : super(key: key);
 
   int clas;
   String subid;
   String limit;
   int plan;
+  int package;
 
   @override
   State<LibraryCategoriesPage> createState() => _LibraryCategoriesPageState();
@@ -30,28 +35,30 @@ Future<List<LibraryCategoriesData>> fetchCategories() async {
       'https://educanug.com/educan_new/educan/api/library/get_library_categories.php'));
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
-  print(jsonResponse);
-  return jsonResponse.map((data) => LibraryCategoriesData.fromJson(data)).toList();
+  // print(jsonResponse);
+  return jsonResponse
+      .map((data) => LibraryCategoriesData.fromJson(data))
+      .toList();
   // } else {
   //   throw Exception('Unexpected error occured!');
   // }
 }
+
 // final orientation = MediaQuery.of(context).orientation;
 class _LibraryCategoriesPageState extends State<LibraryCategoriesPage> {
-
   String uid = '';
-   _loadCounterx() async {
+  _loadCounterx() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-    uid = (prefs.getString('uid') ?? '');
-   
+      uid = (prefs.getString('uid') ?? '');
     });
-   
   }
-   @override
+
+  @override
   void initState() {
     _loadCounterx();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,75 +113,74 @@ class _LibraryCategoriesPageState extends State<LibraryCategoriesPage> {
                 // print(snapshot.error);
                 if (snapshot.hasData) {
                   List<LibraryCategoriesData>? data = snapshot.data;
-                      return   GridView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          itemCount: data?.length,
-                          physics: const ScrollPhysics(),
-                          itemBuilder: (ctx, i) {
-                            return GestureDetector(
-                              onTap: (){
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => LibraryContentsPage(
-                                      title: data![i].title!,
-                                      subid: widget.subid,
-                                      clas: widget.clas.toString(),
-                                      code: data[i].code!,
-                                      limit:widget.limit,
-                                      plan:widget.plan,
-                                      uid: uid,
-                                    )));
-                              },
-                              child: Card(
-                                child: Container(
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  margin: const EdgeInsets.all(5),
-                                  padding: const EdgeInsets.all(5),
-                                  child: Stack(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                            child: Image.network(
-                                              data![i].image!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                          Text(
-                                            data[i].title!,
-                                            style: const TextStyle(
-                                              fontSize: 15,
-
-                                            ),
-                                          ),
-
-                                        ],
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    itemCount: data?.length,
+                    physics: const ScrollPhysics(),
+                    itemBuilder: (ctx, i) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => LibraryContentsPage(
+                                    title: data![i].title!,
+                                    subid: widget.subid,
+                                    clas: widget.clas.toString(),
+                                    code: data[i].code!,
+                                    limit: widget.limit,
+                                    plan: widget.plan,
+                                    uid: uid,
+                                    package: widget.package,
+                                  )));
+                        },
+                        child: Card(
+                          child: Container(
+                            height: 200,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20)),
+                            margin: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
+                            child: Stack(
+                              children: [
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Expanded(
+                                      child: Image.network(
+                                        data![i].image!,
+                                        fit: BoxFit.fill,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Text(
+                                      data[i].title!,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            );
-                          },
-
-
-
-
-                        // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        //     crossAxisCount: (MediaQuery.of(context).orientation == Orientation.portrait) ? 2 : 3),
-                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: (MediaQuery.of(context).orientation == Orientation.portrait) ? 2 : 3,
-                            childAspectRatio: 1.0,
-                            crossAxisSpacing: 0.0,
-                            mainAxisSpacing: 5,
-                            // mainAxisExtent: 100,
+                              ],
+                            ),
                           ),
-                        // ),
+                        ),
                       );
+                    },
 
+                    // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    //     crossAxisCount: (MediaQuery.of(context).orientation == Orientation.portrait) ? 2 : 3),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: (MediaQuery.of(context).orientation ==
+                              Orientation.portrait)
+                          ? 2
+                          : 3,
+                      childAspectRatio: 1.0,
+                      crossAxisSpacing: 0.0,
+                      mainAxisSpacing: 5,
+                      // mainAxisExtent: 100,
+                    ),
+                    // ),
+                  );
                 } else {
                   return const Center(
                     child: CircularProgressIndicator(),

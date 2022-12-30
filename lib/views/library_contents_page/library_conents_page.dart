@@ -19,7 +19,9 @@ class LibraryContentsPage extends StatefulWidget {
       required this.subid,
       required this.code,
       required this.limit,
-      required this.plan,required this.uid})
+      required this.plan,
+      required this.uid,
+      required this.package})
       : super(key: key);
   String title;
   String clas;
@@ -28,34 +30,42 @@ class LibraryContentsPage extends StatefulWidget {
   String uid;
   String limit;
   int plan;
+  int package;
   @override
   State<LibraryContentsPage> createState() => _LibraryContentsPageState();
 }
 
 Future<List<LibraryTopicItems>> fetchContents(
-    String cl, String sub, String c) async {
+    String cl, String sub, String c, int package) async {
   final response;
   if (c == "BK") {
     response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_books.php?class=$cl&subject=$sub'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_books.php?class=$cl&subject=$sub&pack=$package'));
+
   } else if (c == "AN") {
     response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_answers.php?class=$cl&subject=$sub'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_answers.php?class=$cl&subject=$sub&pack=$package'));
+  
   } else if (c == "TST") {
     response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_tests.php?class=$cl&subject=$sub'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_tests.php?class=$cl&subject=$sub&pack=$package'));
+   
   } else if (c == "EX") {
     response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_exam.php?class=$cl&subject=$sub'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_exam.php?class=$cl&subject=$sub&pack=$package'));
+
   } else if (c == "UNEB") {
     response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_uneb.php?class=$cl&subject=$sub'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_uneb.php?class=$cl&subject=$sub&pack=$package'));
+  
   } else if (c == "RN") {
     response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_notes.php?class=$cl&subject=$sub'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_notes.php?class=$cl&subject=$sub&pack=$package'));
+   
   } else {
     response = await http.get(Uri.parse(
-        'https://educanug.com/educan_new/educan/api/library/get_topic_others.php?class=$cl&subject=$sub&c=$c'));
+        'https://educanug.com/educan_new/educan/api/library/get_topic_others.php?class=$cl&subject=$sub&c=$c&pack=$package'));
+   
   }
 
   // if (response.statusCode == 200) {
@@ -121,7 +131,8 @@ class _LibraryContentsPageState extends State<LibraryContentsPage> {
             height: 10,
           ),
           FutureBuilder<List<LibraryTopicItems>>(
-              future: fetchContents(widget.clas, widget.subid, widget.code),
+              future: fetchContents(
+                  widget.clas, widget.subid, widget.code, widget.package),
               builder: (context, snapshot) {
                 // print(snapshot.error);
                 if (snapshot.hasData) {
@@ -138,21 +149,20 @@ class _LibraryContentsPageState extends State<LibraryContentsPage> {
                             if (widget.plan >=
                                 int.parse(data[index].chargeAmount!)) {
                               //  collect the charge amount here
-                              result = await controller.chargeWallet(widget.uid,data[index].chargeAmount!,'Library Charge');
+                              result = await controller.chargeWallet(widget.uid,
+                                  data[index].chargeAmount!, 'Library Charge');
                               // print(result);
                               var got = json.decode(result);
                               // print(got['message']);
                               if (got['success']) {
-                                   Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => PDFDoc(
-                                        link: data[index].link!,
-                                        title: data[index].title!,
-                                      )));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => PDFDoc(
+                                          link: data[index].link!,
+                                          title: data[index].title!,
+                                        )));
                               } else {
                                 _showMyDialog();
                               }
-
-                           
                             } else {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
@@ -238,7 +248,7 @@ class _LibraryContentsPageState extends State<LibraryContentsPage> {
     );
   }
 
-    Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!

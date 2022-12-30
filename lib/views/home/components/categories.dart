@@ -4,6 +4,7 @@ import 'package:educanapp/views/features/presentation/pages/portfolio/portfolio_
 import 'package:educanapp/views/home/components/wallet_auth_page.dart';
 import 'package:educanapp/views/pdf_view/pdfViewerPage.dart';
 import 'package:educanapp/views/pdf_viewer_page/pdf_viewer_page.dart';
+import 'package:educanapp/views/profile/packages_cards_page.dart';
 import 'package:educanapp/views/scholarship_page/scholarship_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,15 +20,15 @@ class Categories extends StatelessWidget {
  
        {"icon": "assets/images/ed_online_class.png", "text": "Lessons","press":() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ClassesPage(title: "Educan Lessons",catid: 1,)));
+                    builder: (context) => PackageCards(title: "Educan Lessons",catid: 1,)));
               }},
       {"icon": "assets/images/ed_book_shelf.png", "text": "Library","press":() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ClassesPage(title: "Educan Library",catid: 2,)));
+                    builder: (context) => PackageCards(title: "Educan Library",catid: 2,)));
               }},
       {"icon": "assets/images/ed_ask_teacher.png", "text": "Consult","press":() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ClassesPageSecond(title: "Consultation", catid: 4)));
+                    builder: (context) => ClassesPageSecond(title: "Consultation", catid: 4,package: 1,)));
               }},
        {"icon": "assets/images/ed_oreder.png", "text": "Order Lesson","press":() {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -39,7 +40,7 @@ class Categories extends StatelessWidget {
      List<Map<String, dynamic>> categories2 = [
       {"icon": "assets/images/ed_library.png", "text": "Tr. Resources","press":() {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ClassesPage(title: "Teacher Resources",catid: 3,)));
+                    builder: (context) => ClassesPage(title: "Teacher Resources",catid: 3,package: 1,)));
               }},
       {"icon": "assets/images/ed_scholarship.png", "text": "Scholarships","press":() {
                 Navigator.of(context).push(MaterialPageRoute(

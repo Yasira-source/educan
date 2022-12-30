@@ -13,15 +13,21 @@ import '../cart/cart_screen.dart';
 import '../library_contents_page/library_conents_page.dart';
 import '../topics_page/topics_page.dart';
 import 'package:get/get.dart';
+
 class LibraryCategoriesPage2 extends StatefulWidget {
   LibraryCategoriesPage2(
-      {Key? key, required this.clas, required this.subid,required this.limit,required this.plan})
+      {Key? key,
+      required this.clas,
+      required this.subid,
+      required this.limit,
+      required this.plan,required this.package})
       : super(key: key);
 
   int clas;
   String subid;
   String limit;
   int plan;
+  int package;
 
   @override
   State<LibraryCategoriesPage2> createState() => _LibraryCategoriesPage2State();
@@ -33,35 +39,37 @@ Future<List<LibraryCategoriesData>> fetchCategories() async {
   // if (response.statusCode == 200) {
   List jsonResponse = json.decode(response.body);
   // print(jsonResponse);
-  return jsonResponse.map((data) => LibraryCategoriesData.fromJson(data)).toList();
+  return jsonResponse
+      .map((data) => LibraryCategoriesData.fromJson(data))
+      .toList();
   // } else {
   //   throw Exception('Unexpected error occured!');
   // }
 }
+
 // final orientation = MediaQuery.of(context).orientation;
 class _LibraryCategoriesPage2State extends State<LibraryCategoriesPage2> {
   final cartController = Get.put(CartController());
   // final ecomCartController = Get.put(EcomCartController());
-String uid = '';
-   _loadCounterx() async {
+  String uid = '';
+  _loadCounterx() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-    uid = (prefs.getString('uid') ?? '');
-   
+      uid = (prefs.getString('uid') ?? '');
     });
-   
   }
-   @override
+
+  @override
   void initState() {
     _loadCounterx();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A8F00),
         elevation: 0,
-
         title: const Text("Resource Categories"),
         actions: [
           // IconButton(
@@ -73,34 +81,29 @@ String uid = '';
           // ),
           Stack(
             children: [
-              IconButton(onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CartScreen(
-                    )));
-              }, icon: const Icon(Icons.shopping_cart_outlined)),
-              Obx(()=>
-                  Positioned(
-                      top: 0,
-                      right: 6,
-
-                      child:cartController.products.length+cartController.productsx.length==0?
-                      Container()
-                          :
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                            color: Colors.red,
-
-                            shape: BoxShape.circle),
-                        child:
-                        Text(
-                          '${cartController.products.length+cartController.productsx.length}',
-                          style: const TextStyle(fontSize: 12),
-                        ),
-
-                      )
-
-                  ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CartScreen()));
+                  },
+                  icon: const Icon(Icons.shopping_cart_outlined)),
+              Obx(
+                () => Positioned(
+                    top: 0,
+                    right: 6,
+                    child: cartController.products.length +
+                                cartController.productsx.length ==
+                            0
+                        ? Container()
+                        : Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: const BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            child: Text(
+                              '${cartController.products.length + cartController.productsx.length}',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          )),
               ),
             ],
           )
@@ -129,24 +132,24 @@ String uid = '';
                 // print(snapshot.error);
                 if (snapshot.hasData) {
                   List<LibraryCategoriesData>? data = snapshot.data;
-                  return   GridView.builder(
+                  return GridView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     itemCount: data?.length,
                     physics: const ScrollPhysics(),
                     itemBuilder: (ctx, i) {
                       return GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => LibraryContentsPage(
-                                title: data![i].title!,
-                                subid: widget.subid,
-                                clas: widget.clas.toString(),
-                                code: data[i].code!,
-                                limit:widget.limit,
-                                plan:widget.plan,
-                                uid: uid,
-                              )));
+                                  title: data![i].title!,
+                                  subid: widget.subid,
+                                  clas: widget.clas.toString(),
+                                  code: data[i].code!,
+                                  limit: widget.limit,
+                                  plan: widget.plan,
+                                  uid: uid,
+                                  package: widget.package)));
                         },
                         child: Card(
                           child: Container(
@@ -158,7 +161,8 @@ String uid = '';
                             child: Stack(
                               children: [
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Expanded(
                                       child: Image.network(
@@ -170,10 +174,8 @@ String uid = '';
                                       data[i].title!,
                                       style: const TextStyle(
                                         fontSize: 15,
-
                                       ),
                                     ),
-
                                   ],
                                 ),
                               ],
@@ -183,13 +185,13 @@ String uid = '';
                       );
                     },
 
-
-
-
                     // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     //     crossAxisCount: (MediaQuery.of(context).orientation == Orientation.portrait) ? 2 : 3),
-                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: (MediaQuery.of(context).orientation == Orientation.portrait) ? 2 : 3,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: (MediaQuery.of(context).orientation ==
+                              Orientation.portrait)
+                          ? 2
+                          : 3,
                       childAspectRatio: 1.0,
                       crossAxisSpacing: 0.0,
                       mainAxisSpacing: 5,
@@ -197,7 +199,6 @@ String uid = '';
                     ),
                     // ),
                   );
-
                 } else {
                   return const Center(
                     child: CircularProgressIndicator(),
